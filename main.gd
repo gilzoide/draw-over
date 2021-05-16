@@ -1,6 +1,7 @@
 extends Control
 
 const UNDOREDO_ACTION_DRAW_ITEM = "draw_item"
+const UNDOREDO_ACTION_CLEAR_ITEMS = "clear_items"
 const DrawItem = preload("res://draw_item.gd")
 
 export(Resource) var settings = preload("res://main_settings.tres")
@@ -87,7 +88,11 @@ func _pop_item() -> void:
 
 func _clear_items() -> void:
 	var children = get_children()
-	children.invert()
+	if children.empty():
+		return
+	_undoredo.create_action(UNDOREDO_ACTION_CLEAR_ITEMS)
 	for child in children:
-		remove_child(child)
-		child.queue_free()
+		_undoredo.add_do_method(self, "remove_child", child)
+		_undoredo.add_undo_method(self, "add_child", child)
+		_undoredo.add_undo_reference(child)
+	_undoredo.commit_action()
