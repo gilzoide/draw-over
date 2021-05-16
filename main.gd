@@ -48,8 +48,12 @@ func _gui_input(event: InputEvent) -> void:
 			_start_item(get_local_mouse_position())
 		else:
 			_dragging = false
-	elif event is InputEventMouseMotion and _dragging:
-		_update_last_item(event.position)
+	elif _dragging:
+		if event.is_action_pressed("ui_cancel"):
+			_undoredo.undo()
+			_dragging = false
+		elif event is InputEventMouseMotion:
+			_update_last_item(event.position)
 
 
 func _on_settings_changed() -> void:
@@ -76,14 +80,6 @@ func _update_last_item(point: Vector2) -> void:
 	if child_count > 0:
 		var item = get_child(child_count - 1)
 		item.update_point(point)
-
-
-func _pop_item() -> void:
-	var child_count = get_child_count()
-	if child_count > 0:
-		var item = get_child(child_count - 1)
-		remove_child(item)
-		item.queue_free()
 
 
 func _clear_items() -> void:
