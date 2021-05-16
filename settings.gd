@@ -10,12 +10,7 @@ var _dirty = false
 
 
 func _init() -> void:
-	var file = ConfigFile.new()
-	if file.load(config_path) == OK:
-		if file.has_section_key(SECTION_GLOBAL, KEY_PRESENTATION):
-			set_presentation_mode(bool(file.get_value(SECTION_GLOBAL, KEY_PRESENTATION, false)))
-	else:
-		_request_save()
+	call_deferred("_load")
 
 
 func set_presentation_mode(value: bool) -> void:
@@ -23,6 +18,17 @@ func set_presentation_mode(value: bool) -> void:
 		presentation_mode = value
 		_request_save()
 		emit_signal("changed")
+
+
+func _load() -> void:
+	var file = ConfigFile.new()
+	if file.load(config_path) == OK:
+		if file.has_section_key(SECTION_GLOBAL, KEY_PRESENTATION):
+			var value = file.get_value(SECTION_GLOBAL, KEY_PRESENTATION, false)
+			presentation_mode = bool(value)
+		emit_signal("changed")
+	else:
+		_request_save()
 
 
 func _save() -> void:
