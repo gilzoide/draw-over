@@ -8,6 +8,7 @@ var _dragging = false
 
 
 func _ready() -> void:
+	grab_focus()
 	_on_settings_changed()
 	settings.connect("changed", self, "_on_settings_changed")
 
@@ -18,10 +19,14 @@ func _notification(what: int) -> void:
 
 
 func _gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
+	if event.is_action_released("toggle_background"):
+		settings.presentation_mode = not settings.presentation_mode
+	elif event.is_action_released("clear_drawings"):
+		_clear_items()
+	elif event.is_action("drag_hold"):
 		if event.is_pressed():
 			_dragging = true
-			_start_item(event.position)
+			_start_item(get_local_mouse_position())
 		else:
 			_dragging = false
 	elif event is InputEventMouseMotion and _dragging:
@@ -55,3 +60,11 @@ func _pop_item() -> void:
 		var item = get_child(child_count - 1)
 		remove_child(item)
 		item.queue_free()
+
+
+func _clear_items() -> void:
+	var children = get_children()
+	children.invert()
+	for child in children:
+		remove_child(child)
+		child.queue_free()
