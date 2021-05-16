@@ -1,11 +1,13 @@
 extends Control
 
+const UNDOREDO_ACTION_DRAW_ITEM = "draw_item"
 const DrawItem = preload("res://draw_item.gd")
 
 export(Resource) var settings = preload("res://main_settings.tres")
 
 var _dragging = false
 var _format = DrawItem.Format.LINE_STRIP
+var _undoredo = UndoRedo.new()
 
 
 func _ready() -> void:
@@ -15,21 +17,30 @@ func _ready() -> void:
 
 
 func _notification(what: int) -> void:
-	if what == NOTIFICATION_MOUSE_EXIT:
+	if what == NOTIFICATION_PREDELETE:
+		_undoredo.free()
+		_undoredo = null
+	elif what == NOTIFICATION_MOUSE_EXIT:
 		_dragging = false
 
 
 func _gui_input(event: InputEvent) -> void:
-	if event.is_action_released("toggle_background"):
+	if event.is_action_pressed("toggle_background"):
 		settings.presentation_mode = not settings.presentation_mode
-	elif event.is_action_released("clear_drawings"):
+	elif event.is_action_pressed("clear_drawings"):
 		_clear_items()
-	elif event.is_action_released("format_line_strip"):
+	elif event.is_action_pressed("format_line_strip"):
 		_format = DrawItem.Format.LINE_STRIP
-	elif event.is_action_released("format_rectangle"):
+	elif event.is_action_pressed("format_rectangle"):
 		_format = DrawItem.Format.RECTANGLE
-	elif event.is_action_released("format_ellipse"):
+	elif event.is_action_pressed("format_ellipse"):
 		_format = DrawItem.Format.ELLIPSE
+	elif event.is_action_pressed("redo"):
+		# NOTE: is_action_pressed("undo") returns true for Shift+Control+Z,
+		# so "redo" must be handled before "undo"
+		_undoredo.redo()
+	elif event.is_action_pressed("undo"):
+		_undoredo.undo()
 	elif event.is_action("drag_hold") and not event.is_echo():
 		if event.is_pressed():
 			_dragging = true
@@ -51,8 +62,12 @@ func _on_settings_changed() -> void:
 func _start_item(point: Vector2) -> void:
 	var item = DrawItem.new()
 	item.format = _format
-	add_child(item)
 	item.start(point)
+	_undoredo.create_action(UNDOREDO_ACTION_DRAW_ITEM)
+	_undoredo.add_do_method(self, "add_child", item)
+	_undoredo.add_do_reference(item)
+	_undoredo.add_undo_method(self, "remove_child", item)
+	_undoredo.commit_action()
 
 
 func _update_last_item(point: Vector2) -> void:
