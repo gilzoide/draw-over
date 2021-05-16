@@ -58,7 +58,6 @@ func _gui_input(event: InputEvent) -> void:
 
 func _on_settings_changed() -> void:
 	var is_in_presentation = settings.presentation_mode
-	mouse_default_cursor_shape = CURSOR_CROSS if is_in_presentation else CURSOR_ARROW
 	OS.window_per_pixel_transparency_enabled = is_in_presentation
 	OS.window_borderless = is_in_presentation
 	get_viewport().transparent_bg = is_in_presentation
