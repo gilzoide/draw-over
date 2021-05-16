@@ -3,6 +3,7 @@ extends Node2D
 enum Format {
 	LINE_STRIP,
 	RECTANGLE,
+	ELLIPSE,
 }
 
 export(Format) var format = Format.LINE_STRIP
@@ -17,6 +18,11 @@ func _draw() -> void:
 		draw_polyline(param, color)
 	elif format == Format.RECTANGLE:
 		draw_rect(param, color, false)
+	elif format == Format.ELLIPSE:
+		var size = param.size
+		var center = param.position + size * 0.5
+		draw_set_transform(center, 0, size)
+		draw_arc(Vector2.ZERO, 0.5, 0, TAU, int(clamp(max(size.x, size.y), 3, 64)), color)
 
 
 func start(point: Vector2) -> void:
@@ -33,4 +39,8 @@ func update_point(point: Vector2) -> void:
 		param.append(point)
 	else:
 		param = Rect2(origin, Vector2.ONE).expand(point)
+		if param.size.x < 1:
+			param.size.x = 1
+		if param.size.y < 1:
+			param.size.y = 1
 	update()
