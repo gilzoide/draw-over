@@ -23,7 +23,7 @@ func _gui_input(event: InputEvent) -> void:
 		settings.presentation_mode = not settings.presentation_mode
 	elif event.is_action_released("clear_drawings"):
 		_clear_items()
-	elif event.is_action("drag_hold"):
+	elif event.is_action("drag_hold") and not event.is_echo():
 		if event.is_pressed():
 			_dragging = true
 			_start_item(get_local_mouse_position())
