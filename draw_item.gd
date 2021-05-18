@@ -1,20 +1,27 @@
+# Copyright (c) 2021 Gil Barbosa Reis.
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
 extends Node2D
 
 enum Format {
-	LINE_STRIP,
+	PENCIL,
 	RECTANGLE,
 	ELLIPSE,
 }
 
-export(Format) var format = Format.LINE_STRIP
+const Brush = preload("res://brush.gd")
+
+export(Format) var format = Format.PENCIL
 
 export(Color) var color = Color.white
+export(float) var line_width = 1.0
 var origin: Vector2
-var param  # PoolVector2Array for LINE_STRIP, Rect2 for others
+var param  # PoolVector2Array for PENCIL, Rect2 for others
 
 
 func _draw() -> void:
-	if format == Format.LINE_STRIP:
+	if format == Format.PENCIL:
 		draw_polyline(param, color)
 	elif format == Format.RECTANGLE:
 		draw_rect(param, color, false)
@@ -27,15 +34,20 @@ func _draw() -> void:
 
 func start(point: Vector2) -> void:
 	origin = point
-	if format == Format.LINE_STRIP:
+	if format == Format.PENCIL:
 		param = PoolVector2Array([point, point + Vector2(1, 0)])
 	else:
 		param = Rect2(point, Vector2.ONE)
 	update()
 
 
+func set_brush(brush: Brush) -> void:
+	color = brush.color
+	line_width = brush.line_width
+
+
 func update_point(point: Vector2) -> void:
-	if format == Format.LINE_STRIP:
+	if format == Format.PENCIL:
 		param.append(point)
 	else:
 		param = Rect2(origin, Vector2.ONE).expand(point)

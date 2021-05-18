@@ -1,13 +1,64 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
+[ext_resource path="res://textures/PencilIcon.svg" type="Texture" id=2]
+[ext_resource path="res://textures/RectangleToolIcon.svg" type="Texture" id=3]
+[ext_resource path="res://textures/EllipseToolIcon.svg" type="Texture" id=4]
+[ext_resource path="res://toolbar/toolbar_theme.tres" type="Theme" id=5]
+[ext_resource path="res://toolbar/toolbar.gd" type="Script" id=6]
+[ext_resource path="res://toolbar/toolbar_buttongroup.tres" type="ButtonGroup" id=7]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+margin_left = 0.396851
+margin_right = 0.396851
 focus_mode = 2
 mouse_default_cursor_shape = 3
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Toolbar" type="PanelContainer" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -77.0
+margin_top = 8.0
+margin_right = 77.0
+margin_bottom = 40.0
+script = ExtResource( 6 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Toolbar"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 147.0
+margin_bottom = 35.0
+theme = ExtResource( 5 )
+
+[node name="PencilButton" type="Button" parent="Toolbar/HBoxContainer"]
+margin_right = 44.0
+margin_bottom = 28.0
+toggle_mode = true
+pressed = true
+group = ExtResource( 7 )
+icon = ExtResource( 2 )
+
+[node name="RectangleButton" type="Button" parent="Toolbar/HBoxContainer"]
+margin_left = 48.0
+margin_right = 92.0
+margin_bottom = 28.0
+toggle_mode = true
+group = ExtResource( 7 )
+icon = ExtResource( 3 )
+
+[node name="EllipseButton" type="Button" parent="Toolbar/HBoxContainer"]
+margin_left = 96.0
+margin_right = 140.0
+margin_bottom = 28.0
+toggle_mode = true
+group = ExtResource( 7 )
+icon = ExtResource( 4 )
