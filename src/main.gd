@@ -5,8 +5,8 @@
 extends Control
 
 enum Mode {
-	HOME,
 	BOARD,
+	TRANSPARENT,
 	PRESENTATION,
 }
 
@@ -48,10 +48,10 @@ func _notification(what: int) -> void:
 
 
 func _gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("mode_home"):
-		_set_mode(Mode.HOME)
 	if event.is_action_pressed("mode_board"):
 		_set_mode(Mode.BOARD)
+	if event.is_action_pressed("mode_transparent"):
+		_set_mode(Mode.TRANSPARENT)
 	elif event.is_action_pressed("mode_presentation"):
 		_set_mode(Mode.PRESENTATION)
 	elif event.is_action_pressed("clear_drawings"):
@@ -84,9 +84,10 @@ func _gui_input(event: InputEvent) -> void:
 
 
 func _set_mode(mode: int) -> void:
-	_toolbar.visible = mode != Mode.PRESENTATION
-	OS.window_per_pixel_transparency_enabled = mode == Mode.PRESENTATION
-	get_viewport().transparent_bg = mode == Mode.PRESENTATION
+	_toolbar.visible = mode == Mode.BOARD or mode == Mode.TRANSPARENT
+	var transparent = mode == Mode.TRANSPARENT or mode == Mode.PRESENTATION
+	OS.window_per_pixel_transparency_enabled = transparent
+	get_viewport().transparent_bg = transparent
 
 
 func _on_settings_changed() -> void:
