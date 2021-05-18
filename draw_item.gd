@@ -10,7 +10,7 @@ enum Format {
 	ELLIPSE,
 }
 
-const Brush = preload("res://brush.gd")
+const Brush = preload("res://brush/brush.gd")
 
 export(Format) var format = Format.PENCIL
 
@@ -22,9 +22,9 @@ var param  # PoolVector2Array for PENCIL, Rect2 for others
 
 func _draw() -> void:
 	if format == Format.PENCIL:
-		draw_polyline(param, color)
+		draw_polyline(param, color, line_width)
 	elif format == Format.RECTANGLE:
-		draw_rect(param, color, false)
+		draw_rect(param, color, false, line_width)
 	elif format == Format.ELLIPSE:
 		var size = param.size
 		var center = param.position + size * 0.5

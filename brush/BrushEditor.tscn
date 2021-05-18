@@ -1,0 +1,38 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://brush/brush_editor.gd" type="Script" id=1]
+
+[node name="BrushEditor" type="VBoxContainer"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LineWidth" type="HBoxContainer" parent="."]
+margin_right = 308.0
+margin_bottom = 16.0
+
+[node name="Label" type="Label" parent="LineWidth"]
+margin_top = 1.0
+margin_right = 66.0
+margin_bottom = 15.0
+text = "Line width"
+
+[node name="HSlider" type="HSlider" parent="LineWidth"]
+margin_left = 70.0
+margin_right = 308.0
+margin_bottom = 16.0
+size_flags_horizontal = 3
+min_value = 1.0
+max_value = 10.0
+value = 1.0
+
+[node name="ColorPicker" type="ColorPicker" parent="."]
+margin_top = 20.0
+margin_right = 308.0
+margin_bottom = 482.0
+
+[connection signal="value_changed" from="LineWidth/HSlider" to="." method="_on_line_width_slider_value_changed"]
+[connection signal="color_changed" from="ColorPicker" to="." method="_on_color_changed"]

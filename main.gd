@@ -20,6 +20,8 @@ export(Resource) var settings = preload("res://main_settings.tres")
 var _dragging = false
 var _undoredo = UndoRedo.new()
 
+onready var _brush_editor_popup = $BrushEditorPopup
+onready var _draw_items_container = $DrawItemsContainer
 onready var _toolbar = $Toolbar
 
 
@@ -63,6 +65,8 @@ func _gui_input(event: InputEvent) -> void:
 			_start_item(get_local_mouse_position())
 		else:
 			_stop_item()
+	elif event.is_action_pressed("open_brush_editor"):
+		_brush_editor_popup.popup(Rect2(get_global_mouse_position(), _brush_editor_popup.rect_size))
 	elif _dragging:
 		if event.is_action_pressed("ui_cancel"):
 			_undoredo.undo()
@@ -90,9 +94,9 @@ func _start_item(point: Vector2) -> void:
 	Input.set_use_accumulated_input(item.format != DrawItem.Format.PENCIL)
 	item.start(point)
 	_undoredo.create_action(UNDOREDO_ACTION_DRAW_ITEM)
-	_undoredo.add_do_method(self, "add_child", item)
+	_undoredo.add_do_method(_draw_items_container, "add_child", item)
 	_undoredo.add_do_reference(item)
-	_undoredo.add_undo_method(self, "remove_child", item)
+	_undoredo.add_undo_method(_draw_items_container, "remove_child", item)
 	_undoredo.commit_action()
 
 
@@ -102,14 +106,14 @@ func _stop_item() -> void:
 
 
 func _update_last_item(point: Vector2) -> void:
-	var child_count = get_child_count()
+	var child_count = _draw_items_container.get_child_count()
 	if child_count > 0:
-		var item = get_child(child_count - 1)
+		var item = _draw_items_container.get_child(child_count - 1)
 		item.update_point(point)
 
 
 func _clear_items() -> void:
-	var children = get_children()
+	var children = _draw_items_container.get_children()
 	if children.empty():
 		return
 	_undoredo.create_action(UNDOREDO_ACTION_CLEAR_ITEMS)
