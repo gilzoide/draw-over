@@ -77,7 +77,6 @@ func _gui_input(event: InputEvent) -> void:
 
 func _set_mode(mode: int) -> void:
 	_toolbar.visible = mode != Mode.PRESENTATION
-	OS.window_borderless = mode == Mode.PRESENTATION
 	OS.window_per_pixel_transparency_enabled = mode == Mode.PRESENTATION
 	get_viewport().transparent_bg = mode == Mode.PRESENTATION
 
