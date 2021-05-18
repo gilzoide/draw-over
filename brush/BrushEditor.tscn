@@ -12,27 +12,35 @@ __meta__ = {
 
 [node name="LineWidth" type="HBoxContainer" parent="."]
 margin_right = 308.0
-margin_bottom = 16.0
+margin_bottom = 24.0
 
 [node name="Label" type="Label" parent="LineWidth"]
-margin_top = 1.0
+margin_top = 5.0
 margin_right = 66.0
-margin_bottom = 15.0
+margin_bottom = 19.0
 text = "Line width"
 
 [node name="HSlider" type="HSlider" parent="LineWidth"]
 margin_left = 70.0
-margin_right = 308.0
-margin_bottom = 16.0
+margin_top = 4.0
+margin_right = 230.0
+margin_bottom = 20.0
 size_flags_horizontal = 3
+size_flags_vertical = 4
 min_value = 1.0
-max_value = 10.0
+max_value = 24.0
 value = 1.0
+allow_greater = true
+
+[node name="SpinBox" type="SpinBox" parent="LineWidth"]
+margin_left = 234.0
+margin_right = 308.0
+margin_bottom = 24.0
 
 [node name="ColorPicker" type="ColorPicker" parent="."]
-margin_top = 20.0
+margin_top = 28.0
 margin_right = 308.0
-margin_bottom = 482.0
+margin_bottom = 490.0
 
 [connection signal="value_changed" from="LineWidth/HSlider" to="." method="_on_line_width_slider_value_changed"]
 [connection signal="color_changed" from="ColorPicker" to="." method="_on_color_changed"]

@@ -9,7 +9,12 @@ const Brush = preload("res://brush/brush.gd")
 export(Resource) var brush
 
 onready var _line_width_slider = $LineWidth/HSlider
+onready var _line_width_spinbox = $LineWidth/SpinBox
 onready var _color_picker = $ColorPicker
+
+
+func _ready() -> void:
+	_line_width_slider.share(_line_width_spinbox)
 
 
 func _notification(what: int) -> void:
