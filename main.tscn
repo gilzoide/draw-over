@@ -22,6 +22,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="DrawItemsContainer" type="Control" parent="."]
+mouse_filter = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Toolbar" type="PanelContainer" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
@@ -44,6 +50,7 @@ theme = ExtResource( 5 )
 [node name="PencilButton" type="Button" parent="Toolbar/HBoxContainer"]
 margin_right = 44.0
 margin_bottom = 28.0
+hint_tooltip = "Pencil tool."
 toggle_mode = true
 pressed = true
 group = ExtResource( 7 )
@@ -53,6 +60,7 @@ icon = ExtResource( 2 )
 margin_left = 48.0
 margin_right = 92.0
 margin_bottom = 28.0
+hint_tooltip = "Rectangle tool."
 toggle_mode = true
 group = ExtResource( 7 )
 icon = ExtResource( 3 )
@@ -61,6 +69,7 @@ icon = ExtResource( 3 )
 margin_left = 96.0
 margin_right = 140.0
 margin_bottom = 28.0
+hint_tooltip = "Ellipse tool."
 toggle_mode = true
 group = ExtResource( 7 )
 icon = ExtResource( 4 )
@@ -76,6 +85,3 @@ margin_top = 4.0
 margin_right = 312.0
 margin_bottom = 486.0
 brush = ExtResource( 9 )
-
-[node name="DrawItemsContainer" type="Control" parent="."]
-mouse_filter = 2

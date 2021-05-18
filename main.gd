@@ -12,7 +12,15 @@ enum Mode {
 
 const UNDOREDO_ACTION_DRAW_ITEM = "draw_item"
 const UNDOREDO_ACTION_CLEAR_ITEMS = "clear_items"
-const DrawItem = preload("res://draw_item.gd")
+const DrawItem = preload("res://drawing/draw_item.gd")
+const DrawItemPencil = preload("res://drawing/draw_item_pencil.gd")
+const DrawItemRectangle = preload("res://drawing/draw_item_rectangle.gd")
+const DrawItemEllipse = preload("res://drawing/draw_item_ellipse.gd")
+var DRAW_ITEM_PER_FORMAT = [
+	DrawItemPencil,
+	DrawItemRectangle,
+	DrawItemEllipse,
+]
 
 export(Resource) var brush = preload("res://main_brush.tres")
 export(Resource) var settings = preload("res://main_settings.tres")
@@ -87,10 +95,10 @@ func _on_settings_changed() -> void:
 
 func _start_item(point: Vector2) -> void:
 	_dragging = true
-	var item = DrawItem.new()
+	var format = _toolbar.current_format()
+	var item = DRAW_ITEM_PER_FORMAT[format].new()
 	item.set_brush(brush)
-	item.format = _toolbar.current_format()
-	Input.set_use_accumulated_input(item.format != DrawItem.Format.PENCIL)
+	Input.set_use_accumulated_input(format != DrawItem.Format.PENCIL)
 	item.start(point)
 	_undoredo.create_action(UNDOREDO_ACTION_DRAW_ITEM)
 	_undoredo.add_do_method(_draw_items_container, "add_child", item)

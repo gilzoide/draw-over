@@ -4,7 +4,7 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 extends Control
 
-const DrawItem = preload("res://draw_item.gd")
+const DrawItem = preload("res://drawing/draw_item.gd")
 
 export(ButtonGroup) var button_group = preload("res://toolbar/toolbar_buttongroup.tres")
 
