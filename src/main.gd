@@ -125,7 +125,7 @@ func _clear_items() -> void:
 		return
 	_undoredo.create_action(UNDOREDO_ACTION_CLEAR_ITEMS)
 	for child in children:
-		_undoredo.add_do_method(self, "remove_child", child)
-		_undoredo.add_undo_method(self, "add_child", child)
+		_undoredo.add_do_method(_draw_items_container, "remove_child", child)
+		_undoredo.add_undo_method(_draw_items_container, "add_child", child)
 		_undoredo.add_undo_reference(child)
 	_undoredo.commit_action()
