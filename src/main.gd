@@ -19,10 +19,12 @@ const DrawItem = preload("res://drawing/draw_item.gd")
 const DrawItemPencil = preload("res://drawing/draw_item_pencil.gd")
 const DrawItemRectangle = preload("res://drawing/draw_item_rectangle.gd")
 const DrawItemEllipse = preload("res://drawing/draw_item_ellipse.gd")
+const DrawItemText = preload("res://drawing/draw_item_text.gd")
 var DRAW_ITEM_PER_FORMAT = [
 	DrawItemPencil,
 	DrawItemRectangle,
 	DrawItemEllipse,
+	DrawItemText,
 ]
 
 export(Resource) var brush = preload("res://main_brush.tres")
@@ -68,6 +70,8 @@ func _gui_input(event: InputEvent) -> void:
 		_toolbar.set_current(DrawItem.Format.RECTANGLE)
 	elif event.is_action_pressed("format_ellipse"):
 		_toolbar.set_current(DrawItem.Format.ELLIPSE)
+	elif event.is_action_pressed("format_text"):
+		_toolbar.set_current(DrawItem.Format.TEXT)
 	elif event.is_action_pressed("redo"):
 		# NOTE: is_action_pressed("undo") returns true for Shift+Control+Z,
 		# so "redo" must be handled before "undo"

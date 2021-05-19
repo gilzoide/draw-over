@@ -11,6 +11,7 @@ enum Format {
 	PENCIL,
 	RECTANGLE,
 	ELLIPSE,
+	TEXT,
 }
 
 const Brush = preload("res://brush/brush.gd")

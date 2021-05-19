@@ -34,8 +34,8 @@ __meta__ = {
 [node name="Toolbar" type="PanelContainer" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -148.0
-margin_right = 148.0
+margin_left = -171.0
+margin_right = 171.0
 margin_bottom = 42.0
 script = ExtResource( 6 )
 __meta__ = {
@@ -45,7 +45,7 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="Toolbar"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 289.0
+margin_right = 335.0
 margin_bottom = 35.0
 theme = ExtResource( 5 )
 
@@ -82,15 +82,26 @@ toggle_mode = true
 group = ExtResource( 7 )
 icon = ExtResource( 4 )
 
-[node name="VSeparator" type="VSeparator" parent="Toolbar/HBoxContainer"]
+[node name="TextButton" type="Button" parent="Toolbar/HBoxContainer"]
 margin_left = 144.0
 margin_right = 186.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 42, 0 )
+hint_tooltip = "(T)
+Text tool."
+toggle_mode = true
+group = ExtResource( 7 )
+text = "Text"
+
+[node name="VSeparator" type="VSeparator" parent="Toolbar/HBoxContainer"]
+margin_left = 190.0
+margin_right = 232.0
+margin_bottom = 28.0
+rect_min_size = Vector2( 42, 0 )
 
 [node name="UndoButton" type="Button" parent="Toolbar/HBoxContainer"]
-margin_left = 190.0
-margin_right = 234.0
+margin_left = 236.0
+margin_right = 280.0
 margin_bottom = 28.0
 hint_tooltip = "(Control+Z)
 Undo last drawing operation."
@@ -98,8 +109,8 @@ focus_mode = 0
 icon = ExtResource( 11 )
 
 [node name="RedoButton" type="Button" parent="Toolbar/HBoxContainer"]
-margin_left = 238.0
-margin_right = 282.0
+margin_left = 284.0
+margin_right = 328.0
 margin_bottom = 28.0
 hint_tooltip = "(Control+Shift+Z)
 Redo last drawing operation."
