@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://textures/PencilIcon.svg" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://toolbar/toolbar_buttongroup.tres" type="ButtonGroup" id=7]
 [ext_resource path="res://brush/BrushEditor.tscn" type="PackedScene" id=8]
 [ext_resource path="res://main_brush.tres" type="Resource" id=9]
+[ext_resource path="res://main_settings.tres" type="Resource" id=10]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -88,3 +89,4 @@ margin_top = 4.0
 margin_right = 312.0
 margin_bottom = 494.0
 brush = ExtResource( 9 )
+settings = ExtResource( 10 )

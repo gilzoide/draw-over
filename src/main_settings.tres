@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource( 1 )
 config_path = "user://config.ini"
-presentation_mode = false
+color_presets = PoolColorArray(  )

@@ -4,40 +4,45 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 extends Resource
 
+signal loaded()
+
 const SECTION_GLOBAL = ""
-const KEY_PRESENTATION = "presentation"
+const SECTION_COLOR = "color"
+const KEY_PRESET = "presets"
 
 export(String) var config_path = "user://config.ini"
-export(bool) var presentation_mode = false setget set_presentation_mode
+export(PoolColorArray) var color_presets: PoolColorArray setget set_color_presets
 
 var _dirty = false
+var loaded = false
 
 
 func _init() -> void:
 	call_deferred("_load")
 
 
-func set_presentation_mode(value: bool) -> void:
-	if value != presentation_mode:
-		presentation_mode = value
-		_request_save()
-		emit_signal("changed")
+func set_color_presets(value: PoolColorArray) -> void:
+	color_presets = value
+	_request_save()
+	emit_signal("changed")
 
 
 func _load() -> void:
 	var file = ConfigFile.new()
 	if file.load(config_path) == OK:
-		if file.has_section_key(SECTION_GLOBAL, KEY_PRESENTATION):
-			var value = file.get_value(SECTION_GLOBAL, KEY_PRESENTATION, false)
-			presentation_mode = bool(value)
+		if file.has_section_key(SECTION_COLOR, KEY_PRESET):
+			var value = file.get_value(SECTION_COLOR, KEY_PRESET, null)
+			if value is PoolColorArray:
+				color_presets = value
 		emit_signal("changed")
-	else:
-		_request_save()
+	loaded = true
+	emit_signal("loaded")
 
 
 func _save() -> void:
 	var file = ConfigFile.new()
-	file.set_value(SECTION_GLOBAL, KEY_PRESENTATION, presentation_mode)
+	if not color_presets.empty():
+		file.set_value(SECTION_COLOR, KEY_PRESET, color_presets)
 	if file.save(config_path) != OK:
 		push_warning("Could not save config file")
 	_dirty = false
