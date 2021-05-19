@@ -37,10 +37,39 @@ margin_left = 234.0
 margin_right = 308.0
 margin_bottom = 24.0
 
-[node name="ColorPicker" type="ColorPicker" parent="."]
+[node name="FontSize" type="HBoxContainer" parent="."]
 margin_top = 28.0
 margin_right = 308.0
-margin_bottom = 490.0
+margin_bottom = 52.0
+
+[node name="Label" type="Label" parent="FontSize"]
+margin_top = 5.0
+margin_right = 58.0
+margin_bottom = 19.0
+text = "Font size"
+
+[node name="HSlider" type="HSlider" parent="FontSize"]
+margin_left = 62.0
+margin_top = 4.0
+margin_right = 230.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+size_flags_vertical = 4
+min_value = 8.0
+max_value = 128.0
+value = 14.0
+allow_greater = true
+
+[node name="SpinBox" type="SpinBox" parent="FontSize"]
+margin_left = 234.0
+margin_right = 308.0
+margin_bottom = 24.0
+
+[node name="ColorPicker" type="ColorPicker" parent="."]
+margin_top = 56.0
+margin_right = 308.0
+margin_bottom = 518.0
 
 [connection signal="value_changed" from="LineWidth/HSlider" to="." method="_on_line_width_slider_value_changed"]
+[connection signal="value_changed" from="FontSize/HSlider" to="." method="_on_font_size_slider_value_changed"]
 [connection signal="color_changed" from="ColorPicker" to="." method="_on_color_changed"]

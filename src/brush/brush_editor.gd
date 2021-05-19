@@ -14,17 +14,22 @@ export(Resource) var settings
 
 onready var _line_width_slider = $LineWidth/HSlider
 onready var _line_width_spinbox = $LineWidth/SpinBox
+onready var _font_size_slider = $FontSize/HSlider
+onready var _font_size_spinbox = $FontSize/SpinBox
 onready var _color_picker = $ColorPicker
 
 
 func _ready() -> void:
 	_line_width_slider.share(_line_width_spinbox)
+	_font_size_slider.share(_font_size_spinbox)
+	
 	if settings:
 		if not settings.loaded:
 			yield(settings, "loaded")
 		for color in settings.color_presets:
 			_color_picker.add_preset(color)
 		_line_width_slider.value = settings.brush_size
+	
 	var _err = _color_picker.connect("preset_added", self, "_on_color_preset_changed")
 	_err = _color_picker.connect("preset_removed", self, "_on_color_preset_changed")
 
@@ -33,9 +38,15 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_VISIBILITY_CHANGED:
 		if is_visible_in_tree() and brush:
 			_line_width_slider.value = brush.line_width
+			_font_size_slider.value = brush.font_size
 			_color_picker.color = brush.color
 		elif settings:
 			settings.brush_size = brush.line_width
+
+
+func _on_font_size_slider_value_changed(value: float) -> void:
+	if brush:
+		brush.font_size = int(value)
 
 
 func _on_line_width_slider_value_changed(value: float) -> void:

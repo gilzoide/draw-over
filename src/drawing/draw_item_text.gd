@@ -7,12 +7,20 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 extends "res://drawing/draw_item.gd"
 
+const font_cache = preload("res://fonts/DroidSans_cache.tres")
+
+var _font_size: int
 var _text_edit: TextEdit
 
 
 func _draw() -> void:
 	if not _text_edit:
 		draw_rect(Rect2(Vector2.ZERO, rect_size), Color.white, false)
+
+
+func set_brush(brush: Brush) -> void:
+	_font_size = brush.font_size
+	.set_brush(brush)
 
 
 func stop() -> void:
@@ -22,7 +30,7 @@ func stop() -> void:
 	_text_edit = TextEdit.new()
 	_text_edit.context_menu_enabled = false
 	_text_edit.add_color_override("font_color", color)
-	_text_edit.add_color_override("font_color_readonly", color)
+	_text_edit.add_font_override("font", font_cache.get_font_with_size(_font_size))
 	var _err = _text_edit.connect("focus_entered", self, "_on_text_edit_focus_entered")
 	_err = _text_edit.connect("focus_exited", self, "_on_text_edit_focus_exited")
 	add_child(_text_edit)
