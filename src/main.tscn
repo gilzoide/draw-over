@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://main.gd" type="Script" id=1]
 [ext_resource path="res://textures/PencilIcon.svg" type="Texture" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://brush/BrushEditor.tscn" type="PackedScene" id=8]
 [ext_resource path="res://main_brush.tres" type="Resource" id=9]
 [ext_resource path="res://main_settings.tres" type="Resource" id=10]
+[ext_resource path="res://textures/UndoToolIcon.svg" type="Texture" id=11]
+[ext_resource path="res://textures/RedoToolIcon.svg" type="Texture" id=12]
 
 [node name="Main" type="Control"]
 anchor_right = 1.0
@@ -32,10 +34,10 @@ __meta__ = {
 [node name="Toolbar" type="PanelContainer" parent="."]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -77.0
+margin_left = -129.0
 margin_top = 8.0
-margin_right = 77.0
-margin_bottom = 40.0
+margin_right = 129.0
+margin_bottom = 42.0
 script = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -44,14 +46,15 @@ __meta__ = {
 [node name="HBoxContainer" type="HBoxContainer" parent="Toolbar"]
 margin_left = 7.0
 margin_top = 7.0
-margin_right = 147.0
+margin_right = 251.0
 margin_bottom = 35.0
 theme = ExtResource( 5 )
 
 [node name="PencilButton" type="Button" parent="Toolbar/HBoxContainer"]
 margin_right = 44.0
 margin_bottom = 28.0
-hint_tooltip = "Pencil tool."
+hint_tooltip = "(P)
+Pencil tool."
 focus_mode = 0
 toggle_mode = true
 pressed = true
@@ -62,7 +65,8 @@ icon = ExtResource( 2 )
 margin_left = 48.0
 margin_right = 92.0
 margin_bottom = 28.0
-hint_tooltip = "Rectangle tool."
+hint_tooltip = "(R)
+Rectangle tool."
 focus_mode = 0
 toggle_mode = true
 group = ExtResource( 7 )
@@ -72,11 +76,35 @@ icon = ExtResource( 3 )
 margin_left = 96.0
 margin_right = 140.0
 margin_bottom = 28.0
-hint_tooltip = "Ellipse tool."
+hint_tooltip = "(E)
+Ellipse tool."
 focus_mode = 0
 toggle_mode = true
 group = ExtResource( 7 )
 icon = ExtResource( 4 )
+
+[node name="VSeparator" type="VSeparator" parent="Toolbar/HBoxContainer"]
+margin_left = 144.0
+margin_right = 148.0
+margin_bottom = 28.0
+
+[node name="UndoButton" type="Button" parent="Toolbar/HBoxContainer"]
+margin_left = 152.0
+margin_right = 196.0
+margin_bottom = 28.0
+hint_tooltip = "(Control+Z)
+Undo last drawing operation."
+focus_mode = 0
+icon = ExtResource( 11 )
+
+[node name="RedoButton" type="Button" parent="Toolbar/HBoxContainer"]
+margin_left = 200.0
+margin_right = 244.0
+margin_bottom = 28.0
+hint_tooltip = "(Control+Shift+Z)
+Redo last drawing operation."
+focus_mode = 0
+icon = ExtResource( 12 )
 
 [node name="BrushEditorPopup" type="PopupPanel" parent="."]
 margin_right = 316.0

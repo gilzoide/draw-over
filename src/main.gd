@@ -31,16 +31,21 @@ var _undoredo = UndoRedo.new()
 onready var _brush_editor_popup = $BrushEditorPopup
 onready var _draw_items_container = $DrawItemsContainer
 onready var _toolbar = $Toolbar
+onready var _undo_button = $Toolbar/HBoxContainer/UndoButton
+onready var _redo_button = $Toolbar/HBoxContainer/RedoButton
 
 
 func _ready() -> void:
 	grab_focus()
-	_on_settings_changed()
-	settings.connect("changed", self, "_on_settings_changed")
+	_on_undoredo_version_changed()
+	_undoredo.connect("version_changed", self, "_on_undoredo_version_changed")
+	_undo_button.connect("pressed", _undoredo, "undo")
+	_redo_button.connect("pressed", _undoredo, "redo")
 
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
+		_undoredo.disconnect("version_changed", self, "_on_undoredo_version_changed")
 		_undoredo.free()
 		_undoredo = null
 
@@ -88,8 +93,9 @@ func _set_mode(mode: int) -> void:
 	get_viewport().transparent_bg = transparent
 
 
-func _on_settings_changed() -> void:
-	pass
+func _on_undoredo_version_changed() -> void:
+	_undo_button.disabled = not _undoredo.has_undo()
+	_redo_button.disabled = not _undoredo.has_redo()
 
 
 func _start_item(point: Vector2) -> void:
