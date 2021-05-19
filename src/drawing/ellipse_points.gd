@@ -30,8 +30,8 @@ func transformed_points(size: Vector2) -> PoolVector2Array:
 
 
 func _refresh_points() -> void:
-	points.resize(point_count)
+	points.resize(point_count + 1)
 	var each_angle = TAU / (point_count - 1)
-	for i in point_count:
+	for i in point_count + 1:
 		var angle = i * each_angle
 		points[i] = Vector2(cos(angle), sin(angle))
