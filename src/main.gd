@@ -43,14 +43,12 @@ func _notification(what: int) -> void:
 	if what == NOTIFICATION_PREDELETE:
 		_undoredo.free()
 		_undoredo = null
-	elif what == NOTIFICATION_MOUSE_EXIT:
-		_dragging = false
 
 
 func _gui_input(event: InputEvent) -> void:
 	if event.is_action_pressed("mode_board"):
 		_set_mode(Mode.BOARD)
-	if event.is_action_pressed("mode_transparent"):
+	elif event.is_action_pressed("mode_transparent"):
 		_set_mode(Mode.TRANSPARENT)
 	elif event.is_action_pressed("mode_presentation"):
 		_set_mode(Mode.PRESENTATION)
