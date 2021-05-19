@@ -17,7 +17,7 @@ func _draw() -> void:
 
 func set_origin(value: Vector2) -> void:
 	.set_origin(value)
-	points = PoolVector2Array([origin, origin + Vector2(1, 0)])
+	points = PoolVector2Array([origin, origin + Vector2(line_width, 0)])
 
 
 func _update_point(value: Vector2) -> void:
