@@ -108,7 +108,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func _set_mode(mode: int) -> void:
-	_toolbar.visible = mode == Mode.BOARD or mode == Mode.TRANSPARENT
+	_toolbar.autohide = mode == Mode.PRESENTATION
 	var transparent = mode == Mode.TRANSPARENT or mode == Mode.PRESENTATION
 	OS.window_per_pixel_transparency_enabled = transparent
 	get_viewport().transparent_bg = transparent

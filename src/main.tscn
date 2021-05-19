@@ -60,6 +60,7 @@ margin_bottom = 28.0
 hint_tooltip = "(P)
 Pencil tool."
 focus_mode = 0
+mouse_filter = 1
 toggle_mode = true
 pressed = true
 group = ExtResource( 7 )
@@ -72,6 +73,7 @@ margin_bottom = 28.0
 hint_tooltip = "(R)
 Rectangle tool."
 focus_mode = 0
+mouse_filter = 1
 toggle_mode = true
 group = ExtResource( 7 )
 icon = ExtResource( 3 )
@@ -83,6 +85,7 @@ margin_bottom = 28.0
 hint_tooltip = "(E)
 Ellipse tool."
 focus_mode = 0
+mouse_filter = 1
 toggle_mode = true
 group = ExtResource( 7 )
 icon = ExtResource( 4 )
@@ -94,6 +97,7 @@ margin_bottom = 28.0
 rect_min_size = Vector2( 42, 0 )
 hint_tooltip = "(T)
 Text tool."
+mouse_filter = 1
 toggle_mode = true
 group = ExtResource( 7 )
 text = "Text"
@@ -103,6 +107,7 @@ margin_left = 190.0
 margin_right = 232.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 42, 0 )
+mouse_filter = 2
 
 [node name="UndoButton" type="Button" parent="Toolbar/HBoxContainer"]
 margin_left = 236.0
@@ -111,6 +116,7 @@ margin_bottom = 28.0
 hint_tooltip = "(Control+Z)
 Undo last drawing operation."
 focus_mode = 0
+mouse_filter = 1
 icon = ExtResource( 11 )
 
 [node name="RedoButton" type="Button" parent="Toolbar/HBoxContainer"]
@@ -120,6 +126,7 @@ margin_bottom = 28.0
 hint_tooltip = "(Control+Shift+Z)
 Redo last drawing operation."
 focus_mode = 0
+mouse_filter = 1
 icon = ExtResource( 12 )
 
 [node name="MoreButton" type="TextureButton" parent="Toolbar/HBoxContainer"]
@@ -129,6 +136,7 @@ margin_bottom = 28.0
 rect_min_size = Vector2( 44, 28 )
 hint_tooltip = "More options."
 focus_mode = 0
+mouse_filter = 1
 texture_normal = ExtResource( 14 )
 texture_hover = ExtResource( 15 )
 expand = true
