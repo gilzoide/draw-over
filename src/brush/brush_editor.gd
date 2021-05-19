@@ -29,6 +29,7 @@ func _ready() -> void:
 		for color in settings.color_presets:
 			_color_picker.add_preset(color)
 		_line_width_slider.value = settings.brush_size
+		_font_size_slider.value = settings.font_size
 	
 	var _err = _color_picker.connect("preset_added", self, "_on_color_preset_changed")
 	_err = _color_picker.connect("preset_removed", self, "_on_color_preset_changed")
@@ -42,6 +43,7 @@ func _notification(what: int) -> void:
 			_color_picker.color = brush.color
 		elif settings:
 			settings.brush_size = brush.line_width
+			settings.font_size = brush.font_size
 
 
 func _on_font_size_slider_value_changed(value: float) -> void:
