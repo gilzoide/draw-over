@@ -6,3 +6,4 @@
 script = ExtResource( 1 )
 config_path = "user://config.ini"
 color_presets = PoolColorArray(  )
+brush_size = 1

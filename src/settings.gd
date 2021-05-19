@@ -10,11 +10,14 @@ extends Resource
 signal loaded()
 
 const SECTION_GLOBAL = ""
-const SECTION_COLOR = "color"
-const KEY_PRESET = "presets"
+const SECTION_BRUSH = "brush"
+const KEY_BRUSH_SIZE = "size"
+const KEY_COLOR_PRESETS = "color_presets"
+const BRUSH_SIZE_DEFAULT = 1
 
 export(String) var config_path = "user://config.ini"
 export(PoolColorArray) var color_presets: PoolColorArray setget set_color_presets
+export(int) var brush_size: int = BRUSH_SIZE_DEFAULT setget set_brush_size
 
 var _dirty = false
 var loaded = false
@@ -30,13 +33,24 @@ func set_color_presets(value: PoolColorArray) -> void:
 	emit_signal("changed")
 
 
+func set_brush_size(value: int) -> void:
+	if value != brush_size:
+		brush_size = value
+		_request_save()
+		emit_signal("changed")
+
+
 func _load() -> void:
 	var file = ConfigFile.new()
 	if file.load(config_path) == OK:
-		if file.has_section_key(SECTION_COLOR, KEY_PRESET):
-			var value = file.get_value(SECTION_COLOR, KEY_PRESET, null)
-			if value is PoolColorArray:
-				color_presets = value
+		var value
+		value = file.get_value(SECTION_BRUSH, KEY_COLOR_PRESETS, 0)
+		if value is PoolColorArray:
+			color_presets = value
+		
+		value = convert(file.get_value(SECTION_BRUSH, KEY_BRUSH_SIZE, BRUSH_SIZE_DEFAULT), TYPE_INT)
+		brush_size = int(max(value, 1))
+		
 		emit_signal("changed")
 	loaded = true
 	emit_signal("loaded")
@@ -45,7 +59,9 @@ func _load() -> void:
 func _save() -> void:
 	var file = ConfigFile.new()
 	if not color_presets.empty():
-		file.set_value(SECTION_COLOR, KEY_PRESET, color_presets)
+		file.set_value(SECTION_BRUSH, KEY_COLOR_PRESETS, color_presets)
+	if brush_size != BRUSH_SIZE_DEFAULT:
+		file.set_value(SECTION_BRUSH, KEY_BRUSH_SIZE, brush_size)
 	if file.save(config_path) != OK:
 		push_warning("Could not save config file")
 	_dirty = false
