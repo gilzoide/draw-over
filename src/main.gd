@@ -33,7 +33,8 @@ export(Resource) var settings = preload("res://main_settings.tres")
 var _dragging = false
 var _undoredo = UndoRedo.new()
 
-onready var _brush_editor_popup = $BrushEditorPopup
+var _BrushEditorPopup: PackedScene
+
 onready var _draw_items_container = $DrawItemsContainer
 onready var _toolbar = $Toolbar
 onready var _undo_button = $Toolbar/HBoxContainer/UndoButton
@@ -46,6 +47,10 @@ func _ready() -> void:
 	_undoredo.connect("version_changed", self, "_on_undoredo_version_changed")
 	_undo_button.connect("pressed", _undoredo, "undo")
 	_redo_button.connect("pressed", _undoredo, "redo")
+	if not settings.loaded:
+		yield(settings, "loaded")
+	brush.line_width = settings.brush_size
+	brush.font_size = settings.font_size
 
 
 func _notification(what: int) -> void:
@@ -84,7 +89,11 @@ func _gui_input(event: InputEvent) -> void:
 		else:
 			_stop_item()
 	elif event.is_action_pressed("open_brush_editor"):
-		_brush_editor_popup.popup(Rect2(get_global_mouse_position(), _brush_editor_popup.rect_size))
+		if not _BrushEditorPopup:
+			_BrushEditorPopup = load("res://brush/BrushEditorPopup.tscn")
+		var popup: Popup = _BrushEditorPopup.instance()
+		add_child(popup)
+		popup.popup(Rect2(get_global_mouse_position(), popup.get_combined_minimum_size()))
 	elif _dragging:
 		if event.is_action_pressed("ui_cancel"):
 			_undoredo.undo()

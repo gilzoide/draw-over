@@ -28,8 +28,9 @@ func _ready() -> void:
 			yield(settings, "loaded")
 		for color in settings.color_presets:
 			_color_picker.add_preset(color)
-		_line_width_slider.value = settings.brush_size
-		_font_size_slider.value = settings.font_size
+	if brush:
+		_line_width_slider.value = brush.line_width
+		_font_size_slider.value = brush.font_size
 	
 	var _err = _color_picker.connect("preset_added", self, "_on_color_preset_changed")
 	_err = _color_picker.connect("preset_removed", self, "_on_color_preset_changed")
