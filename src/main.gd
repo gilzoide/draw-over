@@ -151,3 +151,11 @@ func _clear_items() -> void:
 		_undoredo.add_undo_method(_draw_items_container, "add_child", child)
 		_undoredo.add_undo_reference(child)
 	_undoredo.commit_action()
+
+
+func _on_background_transparency_set(enabled: bool) -> void:
+	if enabled:
+		_set_mode(Mode.TRANSPARENT)
+	else:
+		_set_mode(Mode.BOARD)
+		
