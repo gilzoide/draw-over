@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=2]
+
+[sub_resource type="StyleBoxEmpty" id=1]
+
+[resource]
+TextEdit/styles/completion = SubResource( 1 )
+TextEdit/styles/focus = SubResource( 1 )
+TextEdit/styles/normal = SubResource( 1 )
+TextEdit/styles/read_only = SubResource( 1 )

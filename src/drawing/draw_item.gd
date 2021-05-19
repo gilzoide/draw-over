@@ -22,7 +22,7 @@ var origin: Vector2 setget set_origin
 
 
 func _ready() -> void:
-	mouse_filter = Control.MOUSE_FILTER_PASS
+	mouse_filter = Control.MOUSE_FILTER_IGNORE
 
 
 func set_color(value: Color) -> void:
@@ -46,6 +46,10 @@ func start(point: Vector2) -> void:
 	rect_position = point
 	rect_size = Vector2.ONE
 	update()
+
+
+func stop() -> void:
+	pass
 
 
 func set_brush(brush: Brush) -> void:

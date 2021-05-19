@@ -93,6 +93,11 @@ func _gui_input(event: InputEvent) -> void:
 			_update_last_item(event.position)
 
 
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_cancel"):
+		grab_focus()
+
+
 func _set_mode(mode: int) -> void:
 	_toolbar.visible = mode == Mode.BOARD or mode == Mode.TRANSPARENT
 	var transparent = mode == Mode.TRANSPARENT or mode == Mode.PRESENTATION
@@ -120,6 +125,11 @@ func _start_item(point: Vector2) -> void:
 
 
 func _stop_item() -> void:
+	if _dragging:
+		var child_count = _draw_items_container.get_child_count()
+		if child_count > 0:
+			var item = _draw_items_container.get_child(child_count - 1)
+			item.stop()
 	_dragging = false
 	Input.set_use_accumulated_input(true)
 

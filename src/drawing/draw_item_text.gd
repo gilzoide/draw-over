@@ -7,79 +7,46 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 extends "res://drawing/draw_item.gd"
 
-var lines: PoolStringArray
-
-var _font: Font
-var _ascent: float
-var _line_height: float
-var _previous_focused: Control
-
-
-func _ready() -> void:
-	lines.append("")
-	_refresh_font()
-	_previous_focused = get_focus_owner()
-	focus_mode = Control.FOCUS_ALL
-	grab_focus()
-
-
-func _notification(what: int) -> void:
-	if what == NOTIFICATION_THEME_CHANGED:
-		_refresh_font()
+var _text_edit: TextEdit
 
 
 func _draw() -> void:
-	var position = Vector2(0, _ascent)
-	for line in lines:
-		draw_string(_font, position, line, color)
-		position.y += _line_height
-	if has_focus():
-		var last_line_size = _font.get_string_size(_get_last_line())
-		var caret_origin = Vector2(last_line_size.x + 2, position.y - _line_height)
-		var caret_end = caret_origin - Vector2(0, _ascent)
-		draw_line(caret_origin, caret_end, color)
+	if not _text_edit:
+		draw_rect(Rect2(Vector2.ZERO, rect_size), Color.white, false)
 
 
-func _gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("ui_cancel") or event is InputEventMouseButton:
-		_return_focus()
-	elif event is InputEventKey and event.is_pressed():
-		if event.scancode == KEY_BACKSPACE:
-			var last_line = _get_last_line()
-			var size = last_line.length()
-			if size > 0:
-				_update_last_line(last_line.left(size - 1))
-				update()
-			elif lines.size() > 1:
-				lines.remove(lines.size() - 1)
-				update()
-		elif event.scancode == KEY_ENTER or event.scancode == KEY_KP_ENTER:
-			lines.append("")
-			update()
-		else:
-			var c = char(event.unicode)
-			if not c.empty():
-				_update_last_line(_get_last_line() + c)
-				update()
+func stop() -> void:
+	.stop()
+	if _text_edit:
+		return
+	_text_edit = TextEdit.new()
+	_text_edit.context_menu_enabled = false
+	_text_edit.add_color_override("font_color", color)
+	_text_edit.add_color_override("font_color_readonly", color)
+	var _err = _text_edit.connect("focus_entered", self, "_on_text_edit_focus_entered")
+	_err = _text_edit.connect("focus_exited", self, "_on_text_edit_focus_exited")
+	add_child(_text_edit)
+	_text_edit.grab_focus()
+	update()
 
 
-func _refresh_font() -> void:
-	_font = get_font("font", "Label")
-	_ascent = _font.get_ascent()
-	_line_height = _font.get_height()
+func _on_text_edit_focus_entered() -> void:
+	# give TextEdit the whole available rect while editing
+	_text_edit.rect_size = get_parent_control().rect_size - rect_position
 
 
-func _get_last_line() -> String:
-	return lines[lines.size() - 1]
+func _on_text_edit_focus_exited() -> void:
+	# shrink TextEdit to the text size
+	_text_edit.rect_size = _measure_text_edit_size(_text_edit)
+	_text_edit.deselect()
 
 
-func _update_last_line(value: String) -> void:
-	lines[lines.size() - 1] = value
-
-
-func _return_focus() -> void:
-	if _previous_focused:
-		_previous_focused.grab_focus()
-	else:
-		release_focus()
-	focus_mode = Control.FOCUS_NONE
+static func _measure_text_edit_size(text_edit: TextEdit) -> Vector2:
+	var font = text_edit.get_font("font")
+	var line_height = font.get_height()
+	var size = Vector2.ZERO
+	for i in text_edit.get_line_count():
+		var line = text_edit.get_line(i)
+		size.x = max(size.x, font.get_string_size(line).x)
+		size.y += line_height
+	return size + Vector2(line_height, line_height)
