@@ -7,12 +7,6 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 extends Control
 
-enum Mode {
-	BOARD,
-	TRANSPARENT,
-	PRESENTATION,
-}
-
 const UNDOREDO_ACTION_DRAW_ITEM = "draw_item"
 const UNDOREDO_ACTION_CLEAR_ITEMS = "clear_items"
 const DrawItem = preload("res://drawing/draw_item.gd")
@@ -28,6 +22,7 @@ var DRAW_ITEM_PER_FORMAT = [
 ]
 
 export(Resource) var brush = preload("res://main_brush.tres")
+export(Resource) var main_ui_visibility = preload("res://main_ui_visibility.tres")
 export(Resource) var settings = preload("res://main_settings.tres")
 
 var _dragging = false
@@ -43,14 +38,18 @@ onready var _redo_button = $Toolbar/HBoxContainer/RedoButton
 
 func _ready() -> void:
 	grab_focus()
+	
 	_on_undoredo_version_changed()
 	_undoredo.connect("version_changed", self, "_on_undoredo_version_changed")
 	_undo_button.connect("pressed", _undoredo, "undo")
 	_redo_button.connect("pressed", _undoredo, "redo")
+	
 	if not settings.loaded:
 		yield(settings, "loaded")
 	brush.line_width = settings.brush_size
 	brush.font_size = settings.font_size
+	
+	main_ui_visibility.connect("changed", self, "_on_main_ui_visibility_changed")
 
 
 func _notification(what: int) -> void:
@@ -61,14 +60,12 @@ func _notification(what: int) -> void:
 
 
 func _gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("mode_board"):
-		_set_mode(Mode.BOARD)
-	elif event.is_action_pressed("mode_transparent"):
-		_set_mode(Mode.TRANSPARENT)
-	elif event.is_action_pressed("mode_presentation"):
-		_set_mode(Mode.PRESENTATION)
-	elif event.is_action_pressed("clear_drawings"):
+	if event.is_action_pressed("clear_drawings"):
 		_clear_items()
+	elif event.is_action_pressed("toggle_transparent_background"):
+		main_ui_visibility.transparent_background = not main_ui_visibility.transparent_background
+	elif event.is_action_pressed("toggle_autohide_toolbar"):
+		main_ui_visibility.autohide_toolbar = not main_ui_visibility.autohide_toolbar
 	elif event.is_action_pressed("format_pencil"):
 		_toolbar.set_current(DrawItem.Format.PENCIL)
 	elif event.is_action_pressed("format_rectangle"):
@@ -107,11 +104,13 @@ func _unhandled_input(event: InputEvent) -> void:
 		grab_focus()
 
 
-func _set_mode(mode: int) -> void:
-	_toolbar.autohide = mode == Mode.PRESENTATION
-	var transparent = mode == Mode.TRANSPARENT or mode == Mode.PRESENTATION
-	OS.window_per_pixel_transparency_enabled = transparent
-	get_viewport().transparent_bg = transparent
+func _set_transparent_background(enabled: bool) -> void:
+	OS.window_per_pixel_transparency_enabled = enabled
+	get_viewport().transparent_bg = enabled
+
+
+func _set_autohide_toolbar(enabled: bool) -> void:
+	_toolbar.autohide = enabled
 
 
 func _on_undoredo_version_changed() -> void:
@@ -162,9 +161,6 @@ func _clear_items() -> void:
 	_undoredo.commit_action()
 
 
-func _on_background_transparency_set(enabled: bool) -> void:
-	if enabled:
-		_set_mode(Mode.TRANSPARENT)
-	else:
-		_set_mode(Mode.BOARD)
-		
+func _on_main_ui_visibility_changed() -> void:
+	_set_transparent_background(main_ui_visibility.transparent_background)
+	_set_autohide_toolbar(main_ui_visibility.autohide_toolbar)

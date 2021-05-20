@@ -7,11 +7,12 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 extends BaseButton
 
-signal background_transparency_set(enabled)
-
 enum {
 	TRANSPARENT_BACKGROUND,
+	AUTOHIDE,
 }
+
+export(Resource) var main_ui_visibility = preload("res://main_ui_visibility.tres")
 
 var _popup_menu: PopupMenu
 
@@ -29,13 +30,18 @@ func _pressed() -> void:
 
 func _on_popup_menu_about_to_show() -> void:
 	var idx = _popup_menu.get_item_index(TRANSPARENT_BACKGROUND)
-	_popup_menu.set_item_checked(idx, get_viewport().transparent_bg)
+	_popup_menu.set_item_checked(idx, main_ui_visibility.transparent_background)
+	
+	idx = _popup_menu.get_item_index(AUTOHIDE)
+	_popup_menu.set_item_checked(idx, main_ui_visibility.autohide_toolbar)
 
 
 func _on_popup_menu_id_pressed(id: int) -> void:
+	var idx = _popup_menu.get_item_index(id)
 	if id == TRANSPARENT_BACKGROUND:
-		var idx = _popup_menu.get_item_index(TRANSPARENT_BACKGROUND)
-		emit_signal("background_transparency_set", not _popup_menu.is_item_checked(idx))
+		main_ui_visibility.transparent_background = not _popup_menu.is_item_checked(idx)
+	elif id == AUTOHIDE:
+		main_ui_visibility.autohide_toolbar = not _popup_menu.is_item_checked(idx)
 
 
 static func _create_popup_menu() -> PopupMenu:
@@ -43,7 +49,12 @@ static func _create_popup_menu() -> PopupMenu:
 	popup_menu.add_check_item("Transparent background", TRANSPARENT_BACKGROUND)
 	popup_menu.set_item_tooltip(popup_menu.get_item_index(TRANSPARENT_BACKGROUND), """
 	Set the background fully transparent.
-	Use Control+T for setting the background transparent at anytime.
-	Use Control+B for setting the background opaque at anytime.
 	""")
+	popup_menu.set_item_shortcut(popup_menu.get_item_index(TRANSPARENT_BACKGROUND), load("res://shortcuts/toggle_transparent_background_shortcut.tres"))
+	
+	popup_menu.add_check_item("Autohide toolbar", AUTOHIDE)
+	popup_menu.set_item_tooltip(popup_menu.get_item_index(AUTOHIDE), """
+	Hide the toolbar automatically and show it again when mouse is over.
+	""")
+	popup_menu.set_item_shortcut(popup_menu.get_item_index(AUTOHIDE), load("res://shortcuts/toggle_autohide_toolbar_shortcut.tres"))
 	return popup_menu

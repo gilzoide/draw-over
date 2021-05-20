@@ -145,5 +145,3 @@ script = ExtResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[connection signal="background_transparency_set" from="Toolbar/HBoxContainer/MoreButton" to="." method="_on_background_transparency_set"]
