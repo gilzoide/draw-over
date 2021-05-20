@@ -6,6 +6,6 @@ Made with [Godot](https://godotengine.org/).
 
 
 ## Credits
-- Undo/Redo icons from Material Design Icons: https://github.com/Templarian/MaterialDesign
+- Undo/Redo/Context Menu icons from Material Design Icons: https://github.com/Templarian/MaterialDesign
 - Droid Sans font from the Android Open Source Project
 
