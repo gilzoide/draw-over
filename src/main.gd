@@ -25,10 +25,9 @@ export(Resource) var brush = preload("res://main_brush.tres")
 export(Resource) var main_ui_visibility = preload("res://main_ui_visibility.tres")
 export(Resource) var settings = preload("res://main_settings.tres")
 
+var _BrushEditorPopup: PackedScene
 var _dragging = false
 var _undoredo = UndoRedo.new()
-
-var _BrushEditorPopup: PackedScene
 
 onready var _draw_items_container = $DrawItemsContainer
 onready var _toolbar = $Toolbar
