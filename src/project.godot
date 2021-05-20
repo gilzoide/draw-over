@@ -15,6 +15,8 @@ config/description="A sketch application with transparent background so that you
 run/main_scene="res://main.tscn"
 boot_splash/bg_color=Color( 0.301961, 0.301961, 0.301961, 1 )
 config/icon="res://icon.png"
+config/macos_native_icon="res://icon.icns"
+config/windows_native_icon="res://icon.ico"
 
 [display]
 
