@@ -57,7 +57,7 @@ theme = ExtResource( 5 )
 [node name="PencilButton" type="Button" parent="Toolbar/HBoxContainer"]
 margin_right = 44.0
 margin_bottom = 28.0
-hint_tooltip = "(P)
+hint_tooltip = "(Q)
 Pencil tool."
 focus_mode = 0
 mouse_filter = 1
@@ -70,7 +70,7 @@ icon = ExtResource( 2 )
 margin_left = 48.0
 margin_right = 92.0
 margin_bottom = 28.0
-hint_tooltip = "(R)
+hint_tooltip = "(W)
 Rectangle tool."
 focus_mode = 0
 mouse_filter = 1
@@ -95,7 +95,7 @@ margin_left = 144.0
 margin_right = 186.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 42, 0 )
-hint_tooltip = "(T)
+hint_tooltip = "(R)
 Text tool."
 mouse_filter = 1
 toggle_mode = true
