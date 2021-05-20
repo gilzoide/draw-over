@@ -145,3 +145,5 @@ script = ExtResource( 16 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[connection signal="clear_drawings_pressed" from="Toolbar/HBoxContainer/MoreButton" to="." method="_on_clear_drawings_pressed"]

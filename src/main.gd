@@ -163,3 +163,7 @@ func _clear_items() -> void:
 func _on_main_ui_visibility_changed() -> void:
 	_set_transparent_background(main_ui_visibility.transparent_background)
 	_set_autohide_toolbar(main_ui_visibility.autohide_toolbar)
+
+
+func _on_clear_drawings_pressed():
+	_clear_items()

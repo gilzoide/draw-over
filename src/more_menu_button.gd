@@ -7,9 +7,12 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 extends BaseButton
 
+signal clear_drawings_pressed()
+
 enum {
 	TRANSPARENT_BACKGROUND,
 	AUTOHIDE,
+	CLEAR_DRAWINGS,
 }
 
 export(Resource) var main_ui_visibility = preload("res://main_ui_visibility.tres")
@@ -42,6 +45,8 @@ func _on_popup_menu_id_pressed(id: int) -> void:
 		main_ui_visibility.transparent_background = not _popup_menu.is_item_checked(idx)
 	elif id == AUTOHIDE:
 		main_ui_visibility.autohide_toolbar = not _popup_menu.is_item_checked(idx)
+	elif id == CLEAR_DRAWINGS:
+		emit_signal("clear_drawings_pressed")
 
 
 static func _create_popup_menu() -> PopupMenu:
@@ -57,4 +62,10 @@ static func _create_popup_menu() -> PopupMenu:
 	Hide the toolbar automatically and show it again when mouse is over.
 	""")
 	popup_menu.set_item_shortcut(popup_menu.get_item_index(AUTOHIDE), load("res://shortcuts/toggle_autohide_toolbar_shortcut.tres"))
+	
+	popup_menu.add_item("Clear drawings", CLEAR_DRAWINGS)
+	popup_menu.set_item_tooltip(popup_menu.get_item_index(CLEAR_DRAWINGS), """
+	Remove all current drawings.
+	""")
+	popup_menu.set_item_shortcut(popup_menu.get_item_index(CLEAR_DRAWINGS), load("res://shortcuts/clear_drawings_shortcut.tres"))
 	return popup_menu
