@@ -147,3 +147,4 @@ __meta__ = {
 }
 
 [connection signal="clear_drawings_pressed" from="Toolbar/HBoxContainer/MoreButton" to="." method="_on_clear_drawings_pressed"]
+[connection signal="config_brush_pressed" from="Toolbar/HBoxContainer/MoreButton" to="." method="_open_brush_editor"]

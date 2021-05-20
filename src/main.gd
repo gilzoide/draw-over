@@ -85,11 +85,7 @@ func _gui_input(event: InputEvent) -> void:
 		else:
 			_stop_item()
 	elif event.is_action_pressed("open_brush_editor"):
-		if not _BrushEditorPopup:
-			_BrushEditorPopup = load("res://brush/BrushEditorPopup.tscn")
-		var popup: Popup = _BrushEditorPopup.instance()
-		add_child(popup)
-		popup.popup(Rect2(get_global_mouse_position(), popup.get_combined_minimum_size()))
+		_open_brush_editor()
 	elif _dragging:
 		if event.is_action_pressed("ui_cancel"):
 			_undoredo.undo()
@@ -158,6 +154,14 @@ func _clear_items() -> void:
 		_undoredo.add_undo_method(_draw_items_container, "add_child", child)
 		_undoredo.add_undo_reference(child)
 	_undoredo.commit_action()
+
+
+func _open_brush_editor() -> void:
+	if not _BrushEditorPopup:
+		_BrushEditorPopup = load("res://brush/BrushEditorPopup.tscn")
+	var popup: Popup = _BrushEditorPopup.instance()
+	add_child(popup)
+	popup.popup(Rect2(get_global_mouse_position(), popup.get_combined_minimum_size()))
 
 
 func _on_main_ui_visibility_changed() -> void:
