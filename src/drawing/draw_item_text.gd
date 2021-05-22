@@ -52,4 +52,5 @@ static func _measure_text_edit_size(text_edit: TextEdit) -> Vector2:
 		var line = text_edit.get_line(i)
 		size.x = max(size.x, font.get_string_size(line).x)
 		size.y += line_height
-	return size + Vector2(line_height, line_height)
+	var extra_size = line_height * 0.3
+	return size + Vector2(extra_size, extra_size)
