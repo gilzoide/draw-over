@@ -1,0 +1,91 @@
+# Translations template for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-05-22 11:49-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.1\n"
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:62
+msgid "Pencil (Q)"
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:74
+msgid "Rectangle (W)"
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:85
+msgid "Ellipse (E)"
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:97
+msgid "Text (R)"
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:102
+msgid "Text"
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:116
+msgid ""
+"Open drawing configuration, which includes line width, font size and "
+"color.\n"
+"Colors may be added to the colors preset with the + button and removed by"
+" right clicking them.\n"
+"Right click anywhere to open drawing configuration under cursor."
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:131
+msgid "Undo last drawing operation (Control+Z)"
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:140
+msgid "Redo last drawing operation (Control+Shift+Z)"
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:150
+msgid "More options"
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:54
+msgid "Transparent background"
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:55
+msgid "Set the window background fully transparent."
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:58
+msgid "Autohide toolbar"
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:59
+msgid "Hide the toolbar automatically and show it again when mouse is over."
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:64
+msgid "Clear drawings"
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:65
+msgid "Remove all drawings on screen."
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/brush/BrushEditor.tscn:30
+msgid "Line width"
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/brush/BrushEditor.tscn:58
+msgid "Font size"
+msgstr ""
+

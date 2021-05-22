@@ -1,6 +1,7 @@
 PROJECT_NAME := DrawOver
 BUILD_DIR := $(CURDIR)/build
 PROJECT_DIR := $(CURDIR)/src
+LOCALIZATIONS_DIR := $(PROJECT_DIR)/localizations
 BUILD_PREFIX := $(BUILD_DIR)/$(PROJECT_NAME)
 LICENSE_FILES := LICENSE LICENSE-3RD-PARTY
 
@@ -68,3 +69,9 @@ push-osx: zip-osx
 	$(BUTLER) push $(BUILD_PREFIX)_osx.zip $(BUTLER_PROJECT):osx
 
 push-all: push-win32 push-win64 push-linux32 push-linux64 push-osx
+
+
+# Extract localizations
+extract-localizations:
+	pybabel extract -F pybabelrc -k text -k tr -k hint_tooltip -o $(LOCALIZATIONS_DIR)/messages.pot $(PROJECT_DIR)
+	msgmerge --update --backup=none $(LOCALIZATIONS_DIR)/pt.po $(LOCALIZATIONS_DIR)/messages.pot

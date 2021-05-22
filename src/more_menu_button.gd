@@ -49,25 +49,19 @@ func _on_popup_menu_id_pressed(id: int) -> void:
 		emit_signal("clear_drawings_pressed")
 
 
-static func _create_popup_menu() -> PopupMenu:
+func _create_popup_menu() -> PopupMenu:
 	var popup_menu = PopupMenu.new()
-	popup_menu.add_check_item("Transparent background", TRANSPARENT_BACKGROUND)
-	popup_menu.set_item_tooltip(popup_menu.get_item_index(TRANSPARENT_BACKGROUND), """
-	Set the background fully transparent.
-	""")
+	popup_menu.add_check_item(tr("Transparent background"), TRANSPARENT_BACKGROUND)
+	popup_menu.set_item_tooltip(popup_menu.get_item_index(TRANSPARENT_BACKGROUND), tr("Set the window background fully transparent."))
 	popup_menu.set_item_shortcut(popup_menu.get_item_index(TRANSPARENT_BACKGROUND), load("res://shortcuts/toggle_transparent_background_shortcut.tres"))
 	
-	popup_menu.add_check_item("Autohide toolbar", AUTOHIDE)
-	popup_menu.set_item_tooltip(popup_menu.get_item_index(AUTOHIDE), """
-	Hide the toolbar automatically and show it again when mouse is over.
-	""")
+	popup_menu.add_check_item(tr("Autohide toolbar"), AUTOHIDE)
+	popup_menu.set_item_tooltip(popup_menu.get_item_index(AUTOHIDE), tr("Hide the toolbar automatically and show it again when mouse is over."))
 	popup_menu.set_item_shortcut(popup_menu.get_item_index(AUTOHIDE), load("res://shortcuts/toggle_autohide_toolbar_shortcut.tres"))
 	
 	popup_menu.add_separator()
 	
-	popup_menu.add_item("Clear drawings", CLEAR_DRAWINGS)
-	popup_menu.set_item_tooltip(popup_menu.get_item_index(CLEAR_DRAWINGS), """
-	Remove all current drawings.
-	""")
+	popup_menu.add_item(tr("Clear drawings"), CLEAR_DRAWINGS)
+	popup_menu.set_item_tooltip(popup_menu.get_item_index(CLEAR_DRAWINGS), tr("Remove all drawings on screen."))
 	popup_menu.set_item_shortcut(popup_menu.get_item_index(CLEAR_DRAWINGS), load("res://shortcuts/clear_drawings_shortcut.tres"))
 	return popup_menu

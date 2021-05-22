@@ -59,8 +59,7 @@ theme = ExtResource( 5 )
 [node name="PencilButton" type="Button" parent="Toolbar/HBoxContainer"]
 margin_right = 44.0
 margin_bottom = 28.0
-hint_tooltip = "(Q)
-Pencil tool."
+hint_tooltip = "Pencil (Q)"
 focus_mode = 0
 mouse_filter = 1
 toggle_mode = true
@@ -72,8 +71,7 @@ icon = ExtResource( 2 )
 margin_left = 48.0
 margin_right = 92.0
 margin_bottom = 28.0
-hint_tooltip = "(W)
-Rectangle tool."
+hint_tooltip = "Rectangle (W)"
 focus_mode = 0
 mouse_filter = 1
 toggle_mode = true
@@ -84,8 +82,7 @@ icon = ExtResource( 3 )
 margin_left = 96.0
 margin_right = 140.0
 margin_bottom = 28.0
-hint_tooltip = "(E)
-Ellipse tool."
+hint_tooltip = "Ellipse (E)"
 focus_mode = 0
 mouse_filter = 1
 toggle_mode = true
@@ -97,8 +94,7 @@ margin_left = 144.0
 margin_right = 186.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 42, 0 )
-hint_tooltip = "(R)
-Text tool."
+hint_tooltip = "Text (R)"
 focus_mode = 0
 mouse_filter = 1
 toggle_mode = true
@@ -115,9 +111,9 @@ mouse_filter = 2
 margin_left = 198.0
 margin_right = 242.0
 margin_bottom = 28.0
-hint_tooltip = "(Right click anywhere)
-Open brush configuration, includes line width, font size and color.
-Colors may be added to the colors preset with the + button and removed by right clicking them."
+hint_tooltip = "Open drawing configuration, which includes line width, font size and color.
+Colors may be added to the colors preset with the + button and removed by right clicking them.
+Right click anywhere to open drawing configuration under cursor."
 focus_mode = 0
 mouse_filter = 1
 icon = ExtResource( 8 )
@@ -132,8 +128,7 @@ mouse_filter = 2
 margin_left = 254.0
 margin_right = 298.0
 margin_bottom = 28.0
-hint_tooltip = "(Control+Z)
-Undo last drawing operation."
+hint_tooltip = "Undo last drawing operation (Control+Z)"
 focus_mode = 0
 mouse_filter = 1
 icon = ExtResource( 11 )
@@ -142,8 +137,7 @@ icon = ExtResource( 11 )
 margin_left = 302.0
 margin_right = 346.0
 margin_bottom = 28.0
-hint_tooltip = "(Control+Shift+Z)
-Redo last drawing operation."
+hint_tooltip = "Redo last drawing operation (Control+Shift+Z)"
 focus_mode = 0
 mouse_filter = 1
 icon = ExtResource( 12 )
@@ -153,7 +147,7 @@ margin_left = 350.0
 margin_right = 394.0
 margin_bottom = 28.0
 rect_min_size = Vector2( 44, 28 )
-hint_tooltip = "More options."
+hint_tooltip = "More options"
 focus_mode = 0
 mouse_filter = 1
 texture_normal = ExtResource( 14 )

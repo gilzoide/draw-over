@@ -91,6 +91,10 @@ open_brush_editor={
  ]
 }
 
+[locale]
+
+translations=PoolStringArray( "res://localizations/pt.po" )
+
 [physics]
 
 common/enable_pause_aware_picking=true
