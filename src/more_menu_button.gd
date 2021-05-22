@@ -8,13 +8,11 @@
 extends BaseButton
 
 signal clear_drawings_pressed()
-signal config_brush_pressed()
 
 enum {
 	TRANSPARENT_BACKGROUND,
 	AUTOHIDE,
 	CLEAR_DRAWINGS,
-	CONFIG_BRUSH,
 }
 
 export(Resource) var main_ui_visibility = preload("res://main_ui_visibility.tres")
@@ -49,8 +47,6 @@ func _on_popup_menu_id_pressed(id: int) -> void:
 		main_ui_visibility.autohide_toolbar = not _popup_menu.is_item_checked(idx)
 	elif id == CLEAR_DRAWINGS:
 		emit_signal("clear_drawings_pressed")
-	elif id == CONFIG_BRUSH:
-		emit_signal("config_brush_pressed")
 
 
 static func _create_popup_menu() -> PopupMenu:
@@ -74,10 +70,4 @@ static func _create_popup_menu() -> PopupMenu:
 	Remove all current drawings.
 	""")
 	popup_menu.set_item_shortcut(popup_menu.get_item_index(CLEAR_DRAWINGS), load("res://shortcuts/clear_drawings_shortcut.tres"))
-	
-	popup_menu.add_item("Configure brush", CONFIG_BRUSH)
-	popup_menu.set_item_tooltip(popup_menu.get_item_index(CONFIG_BRUSH), """
-	(Right click anywhere)
-	Open the brush configuration popup, including drawing and font size and color.
-	""")
 	return popup_menu
