@@ -26,7 +26,7 @@ export(Resource) var brush = preload("res://main_brush.tres")
 export(Resource) var main_ui_visibility = preload("res://main_ui_visibility.tres")
 export(Resource) var settings = preload("res://main_settings.tres")
 
-var _BrushEditorPopup: PackedScene
+var _BrushEditor: PackedScene
 var _color_shortcuts = {}
 var _dragging = false
 var _undoredo = UndoRedo.new()
@@ -159,11 +159,13 @@ func _clear_items() -> void:
 
 
 func _open_brush_editor() -> void:
-	if not _BrushEditorPopup:
-		_BrushEditorPopup = load("res://brush/BrushEditorPopup.tscn")
-	var popup: Popup = _BrushEditorPopup.instance()
-	add_child(popup)
-	popup.popup(Rect2(get_global_mouse_position(), popup.get_combined_minimum_size()))
+	if not _BrushEditor:
+		_BrushEditor = load("res://brush/BrushEditor.tscn")
+	var editor = _BrushEditor.instance()
+	add_child(editor)
+	editor.rect_position = get_local_mouse_position()
+	editor.set_as_toplevel(true)
+	editor.show_modal()
 
 
 func _on_settings_changed() -> void:

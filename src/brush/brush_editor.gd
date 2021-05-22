@@ -5,18 +5,18 @@
 # This Source Code Form is subject to the terms of the Mozilla Public
 # License, v. 2.0. If a copy of the MPL was not distributed with this
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
-extends Control
+extends "res://control_always_inside_viewport.gd"
 
 const Brush = preload("res://brush/brush.gd")
 
-export(Resource) var brush
-export(Resource) var settings
+export(Resource) var brush = preload("res://main_brush.tres")
+export(Resource) var settings = preload("res://main_settings.tres")
 
-onready var _line_width_slider = $LineWidth/HSlider
-onready var _line_width_spinbox = $LineWidth/SpinBox
-onready var _font_size_slider = $FontSize/HSlider
-onready var _font_size_spinbox = $FontSize/SpinBox
-onready var _color_picker = $ColorPicker
+onready var _line_width_slider = $VBoxContainer/LineWidth/HSlider
+onready var _line_width_spinbox = $VBoxContainer/LineWidth/SpinBox
+onready var _font_size_slider = $VBoxContainer/FontSize/HSlider
+onready var _font_size_spinbox = $VBoxContainer/FontSize/SpinBox
+onready var _color_picker = $VBoxContainer/ColorPicker
 
 
 func _ready() -> void:
@@ -34,6 +34,9 @@ func _ready() -> void:
 	
 	var _err = _color_picker.connect("preset_added", self, "_on_color_preset_changed")
 	_err = _color_picker.connect("preset_removed", self, "_on_color_preset_changed")
+	_err = _color_picker.connect("color_changed", self, "_on_color_changed")
+	_err = _line_width_slider.connect("value_changed", self, "_on_line_width_slider_value_changed")
+	_err = _font_size_slider.connect("value_changed", self, "_on_font_size_slider_value_changed")
 
 
 func _notification(what: int) -> void:
@@ -42,19 +45,21 @@ func _notification(what: int) -> void:
 			_line_width_slider.value = brush.line_width
 			_font_size_slider.value = brush.font_size
 			_color_picker.color = brush.color
-		elif settings:
+	elif what == NOTIFICATION_MODAL_CLOSE:
+		if settings:
 			settings.brush_size = brush.line_width
 			settings.font_size = brush.font_size
-
-
-func _on_font_size_slider_value_changed(value: float) -> void:
-	if brush:
-		brush.font_size = int(value)
+		queue_free()
 
 
 func _on_line_width_slider_value_changed(value: float) -> void:
 	if brush:
 		brush.line_width = value
+
+
+func _on_font_size_slider_value_changed(value: float) -> void:
+	if brush:
+		brush.font_size = int(value)
 
 
 func _on_color_changed(color: Color) -> void:
