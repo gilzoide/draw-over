@@ -9,6 +9,7 @@ extends Control
 
 const UNDOREDO_ACTION_DRAW_ITEM = "draw_item"
 const UNDOREDO_ACTION_CLEAR_ITEMS = "clear_items"
+const Brush = preload("res://brush/brush.gd")
 const DrawItem = preload("res://drawing/draw_item.gd")
 const DrawItemPencil = preload("res://drawing/draw_item_pencil.gd")
 const DrawItemRectangle = preload("res://drawing/draw_item_rectangle.gd")
@@ -69,13 +70,13 @@ func _gui_input(event: InputEvent) -> void:
 	elif event.is_action_pressed("toggle_autohide_toolbar"):
 		main_ui_visibility.autohide_toolbar = not main_ui_visibility.autohide_toolbar
 	elif event.is_action_pressed("format_pencil"):
-		_toolbar.set_current(DrawItem.Format.PENCIL)
+		brush.format = Brush.Format.PENCIL
 	elif event.is_action_pressed("format_rectangle"):
-		_toolbar.set_current(DrawItem.Format.RECTANGLE)
+		brush.format = Brush.Format.RECTANGLE
 	elif event.is_action_pressed("format_ellipse"):
-		_toolbar.set_current(DrawItem.Format.ELLIPSE)
+		brush.format = Brush.Format.ELLIPSE
 	elif event.is_action_pressed("format_text"):
-		_toolbar.set_current(DrawItem.Format.TEXT)
+		brush.format = Brush.Format.TEXT
 	elif event.is_action_pressed("redo"):
 		# NOTE: is_action_pressed("undo") returns true for Shift+Control+Z,
 		# so "redo" must be handled before "undo"
@@ -121,12 +122,11 @@ func _on_undoredo_version_changed() -> void:
 
 
 func _start_item(point: Vector2) -> void:
-	_dragging = true
-	var format = _toolbar.current_format()
-	var item = DRAW_ITEM_PER_FORMAT[format].new()
+	var item = DRAW_ITEM_PER_FORMAT[brush.format].new()
 	item.set_brush(brush)
-	Input.set_use_accumulated_input(format != DrawItem.Format.PENCIL)
+	Input.set_use_accumulated_input(brush.format != Brush.Format.PENCIL)
 	item.start(point)
+	_dragging = item.supports_dragging()
 	_undoredo.create_action(UNDOREDO_ACTION_DRAW_ITEM)
 	_undoredo.add_do_method(_draw_items_container, "add_child", item)
 	_undoredo.add_do_reference(item)
@@ -135,11 +135,6 @@ func _start_item(point: Vector2) -> void:
 
 
 func _stop_item() -> void:
-	if _dragging:
-		var child_count = _draw_items_container.get_child_count()
-		if child_count > 0:
-			var item = _draw_items_container.get_child(child_count - 1)
-			item.stop()
 	_dragging = false
 	Input.set_use_accumulated_input(true)
 

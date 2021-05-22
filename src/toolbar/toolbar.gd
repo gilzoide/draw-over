@@ -9,11 +9,16 @@ extends Control
 
 const DrawItem = preload("res://drawing/draw_item.gd")
 
-export(ButtonGroup) var button_group = preload("res://toolbar/toolbar_buttongroup.tres")
 export(bool) var autohide = false setget set_autohide
+export(Resource) var brush = preload("res://main_brush.tres")
+export(ButtonGroup) var button_group = preload("res://toolbar/toolbar_buttongroup.tres")
 
 var _is_mouse_inside = false
 onready var _buttons = $HBoxContainer.get_children()
+
+
+func _ready() -> void:
+	var _err = brush.connect("changed", self, "_on_brush_changed")
 
 
 func _notification(what: int) -> void:
@@ -25,16 +30,14 @@ func _notification(what: int) -> void:
 		modulate.a = float(not autohide)
 
 
-func set_current(current: int) -> void:
-	_buttons[current].pressed = true
-
-
 func set_autohide(value: bool) -> void:
 	autohide = value
 	modulate.a = float(_is_mouse_inside or not value)
 
 
-func current_format() -> int:
-	var pressed_button = button_group.get_pressed_button()
-	return pressed_button.get_position_in_parent()
+func _on_brush_changed() -> void:
+	_buttons[brush.format].pressed = true
 
+
+func _on_format_button_pressed(format: int) -> void:
+	brush.format = format

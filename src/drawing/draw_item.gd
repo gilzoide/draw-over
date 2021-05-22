@@ -7,13 +7,6 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 extends Control
 
-enum Format {
-	PENCIL,
-	RECTANGLE,
-	ELLIPSE,
-	TEXT,
-}
-
 const Brush = preload("res://brush/brush.gd")
 
 export(Color) var color = Color.white setget set_color
@@ -48,14 +41,14 @@ func start(point: Vector2) -> void:
 	update()
 
 
-func stop() -> void:
-	pass
-
-
 func set_brush(brush: Brush) -> void:
 	color = brush.color
 	line_width = brush.line_width
 	update()
+
+
+func supports_dragging() -> bool:
+	return true
 
 
 func update_point(point: Vector2) -> void:

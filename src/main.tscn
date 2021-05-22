@@ -163,5 +163,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[connection signal="pressed" from="Toolbar/HBoxContainer/PencilButton" to="Toolbar" method="_on_format_button_pressed" binds= [ 0 ]]
+[connection signal="pressed" from="Toolbar/HBoxContainer/RectangleButton" to="Toolbar" method="_on_format_button_pressed" binds= [ 1 ]]
+[connection signal="pressed" from="Toolbar/HBoxContainer/EllipseButton" to="Toolbar" method="_on_format_button_pressed" binds= [ 2 ]]
+[connection signal="pressed" from="Toolbar/HBoxContainer/TextButton" to="Toolbar" method="_on_format_button_pressed" binds= [ 3 ]]
 [connection signal="pressed" from="Toolbar/HBoxContainer/BrushEditorButton" to="." method="_open_brush_editor"]
 [connection signal="clear_drawings_pressed" from="Toolbar/HBoxContainer/MoreButton" to="." method="_on_clear_drawings_pressed"]

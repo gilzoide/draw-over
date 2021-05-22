@@ -29,9 +29,8 @@ func set_brush(brush: Brush) -> void:
 	.set_brush(brush)
 
 
-func _update_point(_point: Vector2) -> void:
-	# don't update Rect at all here
-	pass
+func supports_dragging() -> bool:
+	return false
 
 
 func _on_text_edit_focus_entered() -> void:
