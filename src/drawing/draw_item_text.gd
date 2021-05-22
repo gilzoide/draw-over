@@ -10,24 +10,10 @@ extends "res://drawing/draw_item.gd"
 const font_cache = preload("res://fonts/DroidSans_cache.tres")
 
 var _font_size: int
-var _text_edit: TextEdit
+var _text_edit = TextEdit.new()
 
 
-func _draw() -> void:
-	if not _text_edit:
-		draw_rect(Rect2(Vector2.ZERO, rect_size), Color.white, false)
-
-
-func set_brush(brush: Brush) -> void:
-	_font_size = brush.font_size
-	.set_brush(brush)
-
-
-func stop() -> void:
-	.stop()
-	if _text_edit:
-		return
-	_text_edit = TextEdit.new()
+func _ready():
 	_text_edit.context_menu_enabled = false
 	_text_edit.add_color_override("font_color", color)
 	_text_edit.add_font_override("font", font_cache.get_font_with_size(_font_size))
@@ -36,6 +22,16 @@ func stop() -> void:
 	add_child(_text_edit)
 	_text_edit.grab_focus()
 	update()
+
+
+func set_brush(brush: Brush) -> void:
+	_font_size = brush.font_size
+	.set_brush(brush)
+
+
+func _update_point(_point: Vector2) -> void:
+	# don't update Rect at all here
+	pass
 
 
 func _on_text_edit_focus_entered() -> void:
@@ -47,6 +43,7 @@ func _on_text_edit_focus_exited() -> void:
 	# shrink TextEdit to the text size
 	_text_edit.rect_size = _measure_text_edit_size(_text_edit)
 	_text_edit.deselect()
+	rect_size = _text_edit.rect_size
 
 
 static func _measure_text_edit_size(text_edit: TextEdit) -> Vector2:
