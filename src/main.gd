@@ -31,6 +31,7 @@ var _color_shortcuts = {}
 var _dragging = false
 var _undoredo = UndoRedo.new()
 
+onready var _brush_cursor = $BrushCursor
 onready var _draw_items_container = $DrawItemsContainer
 onready var _toolbar = $Toolbar
 onready var _undo_button = $Toolbar/HBoxContainer/UndoButton
@@ -60,6 +61,11 @@ func _notification(what: int) -> void:
 		_undoredo.disconnect("version_changed", self, "_on_undoredo_version_changed")
 		_undoredo.free()
 		_undoredo = null
+	elif what == NOTIFICATION_MOUSE_ENTER:
+		_brush_cursor.visible = not _dragging
+		_brush_cursor.position = get_local_mouse_position()
+	elif what == NOTIFICATION_MOUSE_EXIT:
+		_brush_cursor.visible = false
 
 
 func _gui_input(event: InputEvent) -> void:
@@ -96,6 +102,8 @@ func _gui_input(event: InputEvent) -> void:
 			_stop_item()
 		elif event is InputEventMouseMotion:
 			_update_last_item(event.position)
+	elif event is InputEventMouseMotion:
+		_brush_cursor.position = event.position
 	elif event is InputEventKey and event.is_pressed() and not event.is_echo():
 		var color = _color_shortcuts.get(event.scancode)
 		if color:
@@ -126,7 +134,7 @@ func _start_item(point: Vector2) -> void:
 	item.set_brush(brush)
 	Input.set_use_accumulated_input(brush.format != Brush.Format.PENCIL)
 	item.start(point)
-	_dragging = item.supports_dragging()
+	_set_dragging(item.supports_dragging())
 	_undoredo.create_action(UNDOREDO_ACTION_DRAW_ITEM)
 	_undoredo.add_do_method(_draw_items_container, "add_child", item)
 	_undoredo.add_do_reference(item)
@@ -135,8 +143,13 @@ func _start_item(point: Vector2) -> void:
 
 
 func _stop_item() -> void:
-	_dragging = false
+	_set_dragging(false)
 	Input.set_use_accumulated_input(true)
+
+
+func _set_dragging(value: bool) -> void:
+	_dragging = value
+	_brush_cursor.visible = not value
 
 
 func _update_last_item(point: Vector2) -> void:

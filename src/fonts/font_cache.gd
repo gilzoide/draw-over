@@ -12,7 +12,7 @@ export(DynamicFontData) var font_data
 var _font_per_size = {}
 
 
-func get_font_with_size(size: int) -> Font:
+func get_font_with_size(size: int) -> DynamicFont:
 	var font = _font_per_size.get(size)
 	if not font:
 		font = DynamicFont.new()
@@ -20,4 +20,3 @@ func get_font_with_size(size: int) -> Font:
 		font.size = size
 		_font_per_size[size] = font
 	return font
-

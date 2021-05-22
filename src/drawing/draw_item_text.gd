@@ -21,7 +21,6 @@ func _ready():
 	_err = _text_edit.connect("focus_exited", self, "_on_text_edit_focus_exited")
 	add_child(_text_edit)
 	_text_edit.grab_focus()
-	update()
 
 
 func set_brush(brush: Brush) -> void:
