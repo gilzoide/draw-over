@@ -113,6 +113,7 @@ margin_right = 242.0
 margin_bottom = 28.0
 hint_tooltip = "Open drawing configuration, which includes line width, font size and color.
 Colors may be added to the colors preset with the + button and removed by right clicking them.
+Use the number keys to change current color to the corresponding color preset, if there is any.
 Right click anywhere to open drawing configuration under cursor."
 focus_mode = 0
 mouse_filter = 1

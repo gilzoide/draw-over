@@ -3,11 +3,12 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-05-22 11:49-0300\n"
+"POT-Creation-Date: 2021-05-22 13:02-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -36,24 +37,26 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:116
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:114
 msgid ""
 "Open drawing configuration, which includes line width, font size and "
 "color.\n"
 "Colors may be added to the colors preset with the + button and removed by"
 " right clicking them.\n"
+"Use the number keys to change current color to the corresponding color "
+"preset, if there is any.\n"
 "Right click anywhere to open drawing configuration under cursor."
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:131
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:132
 msgid "Undo last drawing operation (Control+Z)"
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:140
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:141
 msgid "Redo last drawing operation (Control+Shift+Z)"
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:150
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:151
 msgid "More options"
 msgstr ""
 

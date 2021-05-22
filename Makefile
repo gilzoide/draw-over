@@ -72,6 +72,8 @@ push-all: push-win32 push-win64 push-linux32 push-linux64 push-osx
 
 
 # Extract localizations
+# WARNING: current version of babel-godot from PyPi can't handle multiline strings,
+# install this one instead: https://github.com/gilzoide/pybabel-godot
 extract-localizations:
 	pybabel extract -F pybabelrc -k text -k tr -k hint_tooltip -o $(LOCALIZATIONS_DIR)/messages.pot $(PROJECT_DIR)
-	msgmerge --update --backup=none $(LOCALIZATIONS_DIR)/pt.po $(LOCALIZATIONS_DIR)/messages.pot
+	pybabel update -i $(LOCALIZATIONS_DIR)/messages.pot -l pt -o $(LOCALIZATIONS_DIR)/pt.po

@@ -1,4 +1,4 @@
-# Translations template for PROJECT.
+# Portuguese translations for PROJECT.
 # Copyright (C) 2021 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # Automatically generated, 2021.
@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-05-22 11:49-0300\n"
+"POT-Creation-Date: 2021-05-22 13:02-0300\n"
 "PO-Revision-Date: 2021-05-22 11:20-0300\n"
 "Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
 "Language: pt\n"
+"Language-Team: none\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:62
 msgid "Pencil (Q)"
@@ -38,29 +38,34 @@ msgstr "Texto (R)"
 msgid "Text"
 msgstr "Texto"
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:116
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:114
 msgid ""
-"Open drawing configuration, which includes line width, font size and color.\n"
-"Colors may be added to the colors preset with the + button and removed by "
-"right clicking them.\n"
+"Open drawing configuration, which includes line width, font size and "
+"color.\n"
+"Colors may be added to the colors preset with the + button and removed by"
+" right clicking them.\n"
+"Use the number keys to change current color to the corresponding color "
+"preset, if there is any.\n"
 "Right click anywhere to open drawing configuration under cursor."
 msgstr ""
 "Abre o menu de configurações de desenho, que inclui largura da linha, "
 "tamanho da fonte e cor.\n"
-"Cores podem ser adicionadas à paleta de cores com o botão + e removidas ao "
-"clicar com o botão direito nelas.\n"
+"Cores podem ser adicionadas à paleta de cores com o botão + e removidas "
+"ao clicar com o botão direito nelas.\n"
+"Use as teclas de números para trocar a cor atual pela cor da paleta "
+"correspondente ao número, se existir alguma.\n"
 "Pressione com o botão direito em qualquer lugar para abrir esse menu na "
 "posição do cursor."
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:131
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:132
 msgid "Undo last drawing operation (Control+Z)"
 msgstr "Desfazer último desenho (Control+Z)"
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:140
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:141
 msgid "Redo last drawing operation (Control+Shift+Z)"
 msgstr "Refazer último desenho (Control+Shift+Z)"
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:150
+#: /media/dados/prog/Godot-Projects/draw-over/src/main.tscn:151
 msgid "More options"
 msgstr "Mais opções"
 
@@ -79,8 +84,8 @@ msgstr "Esconder barra de ferramentas"
 #: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:59
 msgid "Hide the toolbar automatically and show it again when mouse is over."
 msgstr ""
-"Esconde a barra de ferramentas automaticamente e a mostra novamente ao mover "
-"o mouse por cima dela."
+"Esconde a barra de ferramentas automaticamente e a mostra novamente ao "
+"mover o mouse por cima dela."
 
 #: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:64
 msgid "Clear drawings"
@@ -97,3 +102,4 @@ msgstr "Largura da linha"
 #: /media/dados/prog/Godot-Projects/draw-over/src/brush/BrushEditor.tscn:58
 msgid "Font size"
 msgstr "Tamanho da fonte"
+
