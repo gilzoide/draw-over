@@ -15,13 +15,12 @@ const SECTION_FONT = "font"
 const KEY_BRUSH_SIZE = "size"
 const KEY_FONT_SIZE = "size"
 const KEY_COLOR_PRESETS = "color_presets"
-const BRUSH_SIZE_DEFAULT = 1
-const FONT_SIZE_DEFAULT = 14
+const Brush = preload("res://brush/brush.gd")
 
 export(String) var config_path = "user://config.ini"
 export(PoolColorArray) var color_presets: PoolColorArray setget set_color_presets
-export(int) var brush_size: int = BRUSH_SIZE_DEFAULT setget set_brush_size
-export(int) var font_size: int = FONT_SIZE_DEFAULT setget set_font_size
+export(int) var brush_size: int = Brush.DEFAULT_LINE_WIDTH setget set_brush_size
+export(int) var font_size: int = Brush.DEFAULT_FONT_SIZE setget set_font_size
 
 var _dirty = false
 var loaded = false
@@ -59,10 +58,10 @@ func _load() -> void:
 		if value is PoolColorArray:
 			color_presets = value
 		
-		value = convert(file.get_value(SECTION_BRUSH, KEY_BRUSH_SIZE, BRUSH_SIZE_DEFAULT), TYPE_INT)
+		value = convert(file.get_value(SECTION_BRUSH, KEY_BRUSH_SIZE, Brush.DEFAULT_LINE_WIDTH), TYPE_INT)
 		brush_size = int(max(value, 1))
 		
-		value = convert(file.get_value(SECTION_FONT, KEY_FONT_SIZE, FONT_SIZE_DEFAULT), TYPE_INT)
+		value = convert(file.get_value(SECTION_FONT, KEY_FONT_SIZE, Brush.DEFAULT_FONT_SIZE), TYPE_INT)
 		font_size = int(max(value, 8))
 		
 		emit_signal("changed")
@@ -74,9 +73,9 @@ func _save() -> void:
 	var file = ConfigFile.new()
 	if not color_presets.empty():
 		file.set_value(SECTION_BRUSH, KEY_COLOR_PRESETS, color_presets)
-	if brush_size != BRUSH_SIZE_DEFAULT:
+	if brush_size != Brush.DEFAULT_LINE_WIDTH:
 		file.set_value(SECTION_BRUSH, KEY_BRUSH_SIZE, brush_size)
-	if font_size != FONT_SIZE_DEFAULT:
+	if font_size != Brush.DEFAULT_FONT_SIZE:
 		file.set_value(SECTION_FONT, KEY_FONT_SIZE, font_size)
 	if file.save(config_path) != OK:
 		push_warning("Could not save config file")

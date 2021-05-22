@@ -6,5 +6,5 @@
 script = ExtResource( 1 )
 config_path = "user://config.ini"
 color_presets = PoolColorArray(  )
-brush_size = 1
-font_size = 14
+brush_size = 2
+font_size = 24

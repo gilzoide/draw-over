@@ -7,8 +7,11 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 extends Resource
 
-export(float, 1, 128) var line_width = 1 setget set_line_width
-export(int, 8, 128) var font_size = 14 setget set_font_size
+const DEFAULT_LINE_WIDTH = 2
+const DEFAULT_FONT_SIZE = 24
+
+export(float, 1, 128) var line_width = DEFAULT_LINE_WIDTH setget set_line_width
+export(int, 8, 128) var font_size = DEFAULT_FONT_SIZE setget set_font_size
 export(Color) var color = Color.white setget set_color
 
 

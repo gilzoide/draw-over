@@ -4,6 +4,6 @@
 
 [resource]
 script = ExtResource( 1 )
-line_width = 1.0
-font_size = 14
+line_width = 2.0
+font_size = 24
 color = Color( 1, 1, 1, 1 )
