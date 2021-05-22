@@ -26,6 +26,7 @@ export(Resource) var main_ui_visibility = preload("res://main_ui_visibility.tres
 export(Resource) var settings = preload("res://main_settings.tres")
 
 var _BrushEditorPopup: PackedScene
+var _color_shortcuts = {}
 var _dragging = false
 var _undoredo = UndoRedo.new()
 
@@ -47,6 +48,8 @@ func _ready() -> void:
 		yield(settings, "loaded")
 	brush.line_width = settings.brush_size
 	brush.font_size = settings.font_size
+	_on_settings_changed()
+	settings.connect("changed", self, "_on_settings_changed")
 	
 	main_ui_visibility.connect("changed", self, "_on_main_ui_visibility_changed")
 
@@ -92,6 +95,10 @@ func _gui_input(event: InputEvent) -> void:
 			_stop_item()
 		elif event is InputEventMouseMotion:
 			_update_last_item(event.position)
+	elif event is InputEventKey and event.is_pressed() and not event.is_echo():
+		var color = _color_shortcuts.get(event.scancode)
+		if color:
+			brush.color = color
 
 
 func _unhandled_input(event: InputEvent) -> void:
@@ -162,6 +169,15 @@ func _open_brush_editor() -> void:
 	var popup: Popup = _BrushEditorPopup.instance()
 	add_child(popup)
 	popup.popup(Rect2(get_global_mouse_position(), popup.get_combined_minimum_size()))
+
+
+func _on_settings_changed() -> void:
+	_color_shortcuts.clear()
+	var color_presets = settings.color_presets
+	for i in min(color_presets.size(), 9):
+		_color_shortcuts[KEY_1 + i] = color_presets[i]
+	if color_presets.size() >= 10:
+		_color_shortcuts[KEY_0] = color_presets[9]
 
 
 func _on_main_ui_visibility_changed() -> void:
