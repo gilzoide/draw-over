@@ -13,11 +13,25 @@ enum {
 	TRANSPARENT_BACKGROUND,
 	AUTOHIDE,
 	CLEAR_DRAWINGS,
+	LANGUAGE,
 }
+
+enum {
+	LANGUAGE_ENGLISH,
+	LANGUAGE_PORTUGUESE,
+}
+
+const LANGUAGE_SUBMENU_NAME = "language_submenu"
 
 export(Resource) var main_ui_visibility = preload("res://main_ui_visibility.tres")
 
 var _popup_menu: PopupMenu
+
+
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_TRANSLATION_CHANGED:
+		_popup_menu.queue_free()
+		_popup_menu = null
 
 
 func _pressed() -> void:
@@ -25,6 +39,7 @@ func _pressed() -> void:
 		_popup_menu = _create_popup_menu()
 		var _err = _popup_menu.connect("about_to_show", self, "_on_popup_menu_about_to_show")
 		_err = _popup_menu.connect("id_pressed", self, "_on_popup_menu_id_pressed")
+		_err = _popup_menu.get_node(LANGUAGE_SUBMENU_NAME).connect("id_pressed", self, "_on_language_submenu_id_pressed")
 		add_child(_popup_menu)
 	var global_rect = get_global_rect()
 	var size = _popup_menu.get_combined_minimum_size()
@@ -49,6 +64,13 @@ func _on_popup_menu_id_pressed(id: int) -> void:
 		emit_signal("clear_drawings_pressed")
 
 
+func _on_language_submenu_id_pressed(id: int) -> void:
+	if id == LANGUAGE_ENGLISH:
+		TranslationServer.set_locale("en")
+	elif id == LANGUAGE_PORTUGUESE:
+		TranslationServer.set_locale("pt")
+
+
 func _create_popup_menu() -> PopupMenu:
 	var popup_menu = PopupMenu.new()
 	popup_menu.add_check_item(tr("Transparent background"), TRANSPARENT_BACKGROUND)
@@ -64,4 +86,15 @@ func _create_popup_menu() -> PopupMenu:
 	popup_menu.add_item(tr("Clear drawings"), CLEAR_DRAWINGS)
 	popup_menu.set_item_tooltip(popup_menu.get_item_index(CLEAR_DRAWINGS), tr("Remove all drawings on screen."))
 	popup_menu.set_item_shortcut(popup_menu.get_item_index(CLEAR_DRAWINGS), load("res://shortcuts/clear_drawings_shortcut.tres"))
+	
+	popup_menu.add_separator()
+	
+	var language_popup_menu = PopupMenu.new()
+	language_popup_menu.name = LANGUAGE_SUBMENU_NAME
+	language_popup_menu.add_item("English", LANGUAGE_ENGLISH)
+	language_popup_menu.add_item("Português", LANGUAGE_PORTUGUESE)
+	popup_menu.add_child(language_popup_menu)
+	
+	popup_menu.add_submenu_item(tr("Language"), LANGUAGE_SUBMENU_NAME, LANGUAGE)
+	
 	return popup_menu

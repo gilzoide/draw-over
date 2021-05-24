@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-05-22 13:02-0300\n"
+"POT-Creation-Date: 2021-05-23 21:47-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,28 +59,32 @@ msgstr ""
 msgid "More options"
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:54
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:76
 msgid "Transparent background"
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:55
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:77
 msgid "Set the window background fully transparent."
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:58
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:80
 msgid "Autohide toolbar"
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:59
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:81
 msgid "Hide the toolbar automatically and show it again when mouse is over."
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:64
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:86
 msgid "Clear drawings"
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:65
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:87
 msgid "Remove all drawings on screen."
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:97
+msgid "Language"
 msgstr ""
 
 #: /media/dados/prog/Godot-Projects/draw-over/src/brush/BrushEditor.tscn:30

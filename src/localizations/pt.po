@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-05-22 13:02-0300\n"
+"POT-Creation-Date: 2021-05-23 21:47-0300\n"
 "PO-Revision-Date: 2021-05-22 11:20-0300\n"
 "Last-Translator: Automatically generated\n"
 "Language: pt\n"
@@ -69,31 +69,35 @@ msgstr "Refazer último desenho (Control+Shift+Z)"
 msgid "More options"
 msgstr "Mais opções"
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:54
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:76
 msgid "Transparent background"
 msgstr "Fundo transparente"
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:55
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:77
 msgid "Set the window background fully transparent."
 msgstr "Deixa o fundo da janela completamente transparente."
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:58
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:80
 msgid "Autohide toolbar"
 msgstr "Esconder barra de ferramentas"
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:59
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:81
 msgid "Hide the toolbar automatically and show it again when mouse is over."
 msgstr ""
 "Esconde a barra de ferramentas automaticamente e a mostra novamente ao "
 "mover o mouse por cima dela."
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:64
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:86
 msgid "Clear drawings"
 msgstr "Limpar desenhos"
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:65
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:87
 msgid "Remove all drawings on screen."
 msgstr "Remove todos os desenhos da tela."
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:97
+msgid "Language"
+msgstr "Idioma"
 
 #: /media/dados/prog/Godot-Projects/draw-over/src/brush/BrushEditor.tscn:30
 msgid "Line width"

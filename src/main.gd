@@ -54,6 +54,8 @@ func _ready() -> void:
 	settings.connect("changed", self, "_on_settings_changed")
 	
 	main_ui_visibility.connect("changed", self, "_on_main_ui_visibility_changed")
+	
+	_toolbar.connect("minimum_size_changed", _toolbar, "set_anchors_and_margins_preset", [Control.PRESET_CENTER_TOP, Control.PRESET_MODE_MINSIZE])
 
 
 func _notification(what: int) -> void:
