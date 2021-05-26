@@ -9,9 +9,16 @@ extends Resource
 
 signal loaded()
 
-const SECTION_GLOBAL = ""
+enum Locale {
+	SYSTEM_DEFAULT,
+	ENGLISH,
+	PORTUGUESE,
+}
+
+const SECTION_GLOBAL = "global"
 const SECTION_BRUSH = "brush"
 const SECTION_FONT = "font"
+const KEY_LOCALE = "locale"
 const KEY_BRUSH_SIZE = "size"
 const KEY_FONT_SIZE = "size"
 const KEY_COLOR_PRESETS = "color_presets"
@@ -21,9 +28,11 @@ export(String) var config_path = "user://config.ini"
 export(PoolColorArray) var color_presets: PoolColorArray setget set_color_presets
 export(int) var brush_size: int = Brush.DEFAULT_LINE_WIDTH setget set_brush_size
 export(int) var font_size: int = Brush.DEFAULT_FONT_SIZE setget set_font_size
+export(Locale) var locale = Locale.SYSTEM_DEFAULT setget set_locale
+
+var loaded = false
 
 var _dirty = false
-var loaded = false
 
 
 func _init() -> void:
@@ -50,6 +59,32 @@ func set_font_size(value: int) -> void:
 		emit_signal("changed")
 
 
+func set_locale(value: int) -> void:
+	if value != locale:
+		locale = value
+		TranslationServer.set_locale(get_locale_for_id(value))
+		_request_save()
+		emit_signal("changed")
+
+
+static func get_locale_for_id(value: int) -> String:
+	if value == Locale.ENGLISH:
+		return "en"
+	elif value == Locale.PORTUGUESE:
+		return "pt"
+	else:
+		return OS.get_locale()
+
+
+static func get_id_for_locale(value: String) -> int:
+	if value == "en":
+		return Locale.ENGLISH
+	elif value == "pt":
+		return Locale.PORTUGUESE
+	else:
+		return Locale.SYSTEM_DEFAULT
+
+
 func _load() -> void:
 	var file = ConfigFile.new()
 	if file.load(config_path) == OK:
@@ -64,6 +99,10 @@ func _load() -> void:
 		value = convert(file.get_value(SECTION_FONT, KEY_FONT_SIZE, Brush.DEFAULT_FONT_SIZE), TYPE_INT)
 		font_size = int(max(value, 8))
 		
+		value = convert(file.get_value(SECTION_GLOBAL, KEY_LOCALE, ""), TYPE_STRING)
+		locale = get_id_for_locale(value)
+		TranslationServer.set_locale(get_locale_for_id(locale))
+		
 		emit_signal("changed")
 	loaded = true
 	emit_signal("loaded")
@@ -77,6 +116,8 @@ func _save() -> void:
 		file.set_value(SECTION_BRUSH, KEY_BRUSH_SIZE, brush_size)
 	if font_size != Brush.DEFAULT_FONT_SIZE:
 		file.set_value(SECTION_FONT, KEY_FONT_SIZE, font_size)
+	if locale != Locale.SYSTEM_DEFAULT:
+		file.set_value(SECTION_GLOBAL, KEY_LOCALE, get_locale_for_id(locale))
 	if file.save(config_path) != OK:
 		push_warning("Could not save config file")
 	_dirty = false

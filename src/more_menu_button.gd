@@ -16,22 +16,21 @@ enum {
 	LANGUAGE,
 }
 
-enum {
-	LANGUAGE_ENGLISH,
-	LANGUAGE_PORTUGUESE,
-}
-
 const LANGUAGE_SUBMENU_NAME = "language_submenu"
 
 export(Resource) var main_ui_visibility = preload("res://main_ui_visibility.tres")
+export(Resource) var settings = preload("res://main_settings.tres")
 
 var _popup_menu: PopupMenu
+var _language_submenu: PopupMenu
 
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_TRANSLATION_CHANGED:
-		_popup_menu.queue_free()
-		_popup_menu = null
+		if _popup_menu:
+			_popup_menu.queue_free()
+			_popup_menu = null
+			_language_submenu = null
 
 
 func _pressed() -> void:
@@ -39,7 +38,9 @@ func _pressed() -> void:
 		_popup_menu = _create_popup_menu()
 		var _err = _popup_menu.connect("about_to_show", self, "_on_popup_menu_about_to_show")
 		_err = _popup_menu.connect("id_pressed", self, "_on_popup_menu_id_pressed")
-		_err = _popup_menu.get_node(LANGUAGE_SUBMENU_NAME).connect("id_pressed", self, "_on_language_submenu_id_pressed")
+		_language_submenu = _popup_menu.get_node(LANGUAGE_SUBMENU_NAME)
+		_err = _language_submenu.connect("about_to_show", self, "_on_language_submenu_about_to_show")
+		_err = _language_submenu.connect("id_pressed", self, "_on_language_submenu_id_pressed")
 		add_child(_popup_menu)
 	var global_rect = get_global_rect()
 	var size = _popup_menu.get_combined_minimum_size()
@@ -64,11 +65,12 @@ func _on_popup_menu_id_pressed(id: int) -> void:
 		emit_signal("clear_drawings_pressed")
 
 
+func _on_language_submenu_about_to_show() -> void:
+	_language_submenu.set_item_checked(_language_submenu.get_item_index(settings.locale), true)
+
+
 func _on_language_submenu_id_pressed(id: int) -> void:
-	if id == LANGUAGE_ENGLISH:
-		TranslationServer.set_locale("en")
-	elif id == LANGUAGE_PORTUGUESE:
-		TranslationServer.set_locale("pt")
+	settings.locale = id
 
 
 func _create_popup_menu() -> PopupMenu:
@@ -91,8 +93,9 @@ func _create_popup_menu() -> PopupMenu:
 	
 	var language_popup_menu = PopupMenu.new()
 	language_popup_menu.name = LANGUAGE_SUBMENU_NAME
-	language_popup_menu.add_item("English", LANGUAGE_ENGLISH)
-	language_popup_menu.add_item("Português", LANGUAGE_PORTUGUESE)
+	language_popup_menu.add_radio_check_item(tr("System default"), settings.Locale.SYSTEM_DEFAULT)
+	language_popup_menu.add_radio_check_item("English", settings.Locale.ENGLISH)
+	language_popup_menu.add_radio_check_item("Português", settings.Locale.PORTUGUESE)
 	popup_menu.add_child(language_popup_menu)
 	
 	popup_menu.add_submenu_item(tr("Language"), LANGUAGE_SUBMENU_NAME, LANGUAGE)

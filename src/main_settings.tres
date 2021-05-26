@@ -8,3 +8,4 @@ config_path = "user://config.ini"
 color_presets = PoolColorArray(  )
 brush_size = 2
 font_size = 24
+locale = 0

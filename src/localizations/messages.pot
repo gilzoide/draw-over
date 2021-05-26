@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-05-23 21:47-0300\n"
+"POT-Creation-Date: 2021-05-26 13:10-0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -59,31 +59,35 @@ msgstr ""
 msgid "More options"
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:76
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:78
 msgid "Transparent background"
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:77
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:79
 msgid "Set the window background fully transparent."
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:80
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:82
 msgid "Autohide toolbar"
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:81
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:83
 msgid "Hide the toolbar automatically and show it again when mouse is over."
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:86
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:88
 msgid "Clear drawings"
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:87
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:89
 msgid "Remove all drawings on screen."
 msgstr ""
 
-#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:97
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:96
+msgid "System default"
+msgstr ""
+
+#: /media/dados/prog/Godot-Projects/draw-over/src/more_menu_button.gd:101
 msgid "Language"
 msgstr ""
 
