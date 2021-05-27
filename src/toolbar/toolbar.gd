@@ -14,7 +14,12 @@ export(Resource) var brush = preload("res://main_brush.tres")
 export(ButtonGroup) var button_group = preload("res://toolbar/toolbar_buttongroup.tres")
 
 var _is_mouse_inside = false
-onready var _buttons = $HBoxContainer.get_children()
+onready var _buttons = [
+	$HBoxContainer/PencilButton,
+	$HBoxContainer/RectangleButton,
+	$HBoxContainer/EllipseButton,
+	$HBoxContainer/TextButton,
+]
 
 
 func _ready() -> void:
@@ -32,7 +37,7 @@ func _notification(what: int) -> void:
 
 func set_autohide(value: bool) -> void:
 	autohide = value
-	modulate.a = float(_is_mouse_inside or not value)
+	modulate.a = float(_is_mouse_inside or not autohide)
 
 
 func _on_brush_changed() -> void:
