@@ -9,14 +9,12 @@ extends "res://drawing/draw_item.gd"
 
 const font_cache = preload("res://fonts/DroidSans_cache.tres")
 
-var _font_size: int
 var _text_edit = TextEdit.new()
 
 
 func _ready():
 	_text_edit.context_menu_enabled = false
 	_text_edit.add_color_override("font_color", color)
-	_text_edit.add_font_override("font", font_cache.get_font_with_size(_font_size))
 	var _err = _text_edit.connect("focus_entered", self, "_on_text_edit_focus_entered")
 	_err = _text_edit.connect("focus_exited", self, "_on_text_edit_focus_exited")
 	add_child(_text_edit)
@@ -24,7 +22,7 @@ func _ready():
 
 
 func set_brush(brush: Brush) -> void:
-	_font_size = brush.font_size
+	_text_edit.add_font_override("font", font_cache.get_font_with_size(brush.font_size))
 	.set_brush(brush)
 
 
@@ -54,5 +52,5 @@ static func _measure_text_edit_size(text_edit: TextEdit) -> Vector2:
 		var line = text_edit.get_line(i)
 		size.x = max(size.x, font.get_string_size(line).x)
 		size.y += line_height
-	var extra_size = line_height * 0.3
+	var extra_size = line_height * 0.5
 	return size + Vector2(extra_size, extra_size)
