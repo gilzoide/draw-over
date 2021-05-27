@@ -23,15 +23,6 @@ func set_point_count(value: int) -> void:
 		emit_signal("changed")
 
 
-func transformed_points(size: Vector2) -> PoolVector2Array:
-	var transformed = PoolVector2Array()
-	transformed.resize(points.size())
-	var half_size = size * 0.5
-	for i in points.size():
-		transformed[i] = points[i] * half_size
-	return transformed
-
-
 func _refresh_points() -> void:
 	points.resize(point_count + 1)
 	var each_angle = TAU / (point_count - 1)

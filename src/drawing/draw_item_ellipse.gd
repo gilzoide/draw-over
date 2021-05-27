@@ -11,7 +11,6 @@ const ellipse_points = preload("res://drawing/ellipse_points_resource.tres")
 
 
 func _draw() -> void:
-	var size = rect_size
-	var center = size * 0.5
-	draw_set_transform(center, 0, Vector2.ONE)
-	draw_polyline(ellipse_points.transformed_points(size), color, line_width)
+	var center = rect_size * 0.5
+	var transform = Transform2D(Vector2(center.x, 0), Vector2(0, center.y), center)
+	draw_polyline(transform.xform(ellipse_points.points), color, line_width)
