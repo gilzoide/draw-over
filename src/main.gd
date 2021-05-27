@@ -66,7 +66,7 @@ func _notification(what: int) -> void:
 	elif what == NOTIFICATION_MOUSE_ENTER:
 		_brush_cursor.visible = not _dragging
 		_brush_cursor.position = get_local_mouse_position()
-	elif what == NOTIFICATION_MOUSE_EXIT:
+	elif what == NOTIFICATION_MOUSE_EXIT or what == NOTIFICATION_FOCUS_EXIT:
 		_brush_cursor.visible = false
 
 
