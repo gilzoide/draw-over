@@ -3,7 +3,7 @@ BUILD_DIR := $(CURDIR)/build
 PROJECT_DIR := $(CURDIR)/src
 LOCALIZATIONS_DIR := $(PROJECT_DIR)/localizations
 BUILD_PREFIX := $(BUILD_DIR)/$(PROJECT_NAME)
-ADDITIONAL_FILES := $(BUILD_DIR)/README.txt LICENSE.txt LICENSE-3RD-PARTY.txt
+ADDITIONAL_FILES := $(BUILD_DIR)/README.txt $(BUILD_DIR)/LICENSE.txt $(BUILD_DIR)/LICENSE-3RD-PARTY.txt
 
 GODOT := godot
 GODOT_EXPORT := $(GODOT) $(PROJECT_DIR)/project.godot --no-window --export
@@ -41,6 +41,11 @@ osx: $(BUILD_PREFIX)_osx.zip | build-dir
 %README.txt: README.md
 	sed -E -e 's/!?\[([^]]*)\]\([^)]*\)/\1/' $< > $@
 
+%LICENSE.txt: LICENSE
+	cp $< $@
+
+%LICENSE-3RD-PARTY.txt: LICENSE-3RD-PARTY
+	cp $< $@
 
 # Zip the application
 %.zip: $(ADDITIONAL_FILES)
