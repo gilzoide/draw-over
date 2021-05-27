@@ -33,11 +33,13 @@ func supports_dragging() -> bool:
 
 
 func _on_text_edit_focus_entered() -> void:
+	_text_edit.mouse_filter = Control.MOUSE_FILTER_STOP
 	# give TextEdit the whole available rect while editing
 	_text_edit.rect_size = get_parent_control().rect_size - rect_position
 
 
 func _on_text_edit_focus_exited() -> void:
+	_text_edit.mouse_filter = Control.MOUSE_FILTER_PASS
 	# shrink TextEdit to the text size
 	_text_edit.rect_size = _measure_text_edit_size(_text_edit)
 	_text_edit.deselect()
