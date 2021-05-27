@@ -17,6 +17,7 @@ func _init() -> void:
 
 
 func set_point_count(value: int) -> void:
+	value = max(value, 3)
 	if value != point_count:
 		point_count = value
 		_refresh_points()

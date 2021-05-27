@@ -7,7 +7,7 @@
 # file, You can obtain one at https://mozilla.org/MPL/2.0/.
 extends "res://drawing/draw_item.gd"
 
-const ellipse_points = preload("res://drawing/ellipse_points_resource.tres")
+const ellipse_points = preload("res://drawing/circle_points_resource.tres")
 
 
 func _draw() -> void:
