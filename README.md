@@ -2,7 +2,8 @@
 Drawing application with support for transparent background, working both as a
 drawing board or on-screen annotation tool.
 
-Made with [Godot](https://godotengine.org/).
+This tool is made with [Godot](https://godotengine.org/) and is available for
+download in the following link: https://gilzoide.itch.io/draw-over
 
 ![](screenshots/demo.gif)
 
